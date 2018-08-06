@@ -1,0 +1,176 @@
+<div class="container" @enterState>
+  <div class="row" style="margin-top: 5%;">
+    <div class="col-sm-12 col-xl-12">
+      <div class="card">
+        <div class="card-header" style="background-color: #204f81!important; color: white;">
+          <div class="row">
+            <div class="col-lg-12">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 4%;"><li class="fa fa-cog fa-2x" style="margin-top: 6%;"></li></td>
+                  <td style="width: 96%"><h3 style="margin-top: 1%;"> Grados</h3></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="container" *ngIf="controlNivel == 1">
+            <div class="row">
+              <button type="button" class="btn propioBtnPrimary" (click)="open(content)">Nuevo Grado</button>
+            </div>
+            <div class="row" style="margin-top: 1%;">
+              <div class="table-responsive">
+                <table class="table table-bordered" style="margin-top: 1%;">
+                  <thead style="background-color: #204f81;">
+                  <tr>
+                    <th style="color: white; text-align: center;">Codigo</th>
+                    <th style="color: white; text-align: center;">Nombre</th>
+                    <th style="color: white; text-align: center;">Secciones</th>
+                    <th style="color: white; text-align: center;"></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let grado of data1Pagineo">
+                    <td style="text-align: center;">{{grado.orden}}</td>
+                    <td style="text-align: center;">{{grado.nombre}}</td>
+                    <td style="text-align: center;">{{grado.cantidadSecciones}}</td>
+                    <td style=" text-align: center;">
+                      <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn propioBtnPrimary" (click)="editarGrado(content, grado)"><span class="fa fa-edit"></span></button>
+                        <button type="button" class="btn btn-danger" (click)="eliminarGrado(grado.idGrado)"><span class="fa fa-times"></span></button>
+                        <button type="button" class="btn btn-warning" (click)="detalleGrado(content, grado)"><span class="fa fa-external-link"></span></button>
+                      </div>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="row">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="text-align: right;">
+                    <ngb-pagination class="d-flex justify-content-end" [collectionSize]="length1" [(page)]="pageIndex" aria-label="Default pagination" (pageChange)="pageEvent = refrescar($event)" [maxSize]="5" [pageSize]="pageSize"></ngb-pagination>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="container" *ngIf="controlNivel == 2">
+            <div class="row">
+              <form class="col-lg-12">
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label>Codigo</label>
+                    <input type="text" class="form-control" [ngClass]="{'is-invalid': messageCodigo}" id="codigo" name="codigo" placeholder="Codigo" [disabled]="inputDisabled" style="margin-bottom: 1%;" [(ngModel)]="gradoJson.orden">
+                    <label style="color: #dc3545; font-size: 80%;" *ngIf="messageCodigo">{{textoMensaje}}</label>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label>Nombre</label>
+                    <input type="text" class="form-control" [ngClass]="{'is-invalid': messageNombre}" id="nombre" name="nombre" placeholder="Nombre" [disabled]="inputDisabled" [(ngModel)]="gradoJson.nombre" style="margin-bottom: 1%;">
+                    <label style="color: #dc3545; font-size: 80%;" *ngIf="messageNombre">{{textoMensaje}}</label>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label>Tipo de Menu</label>
+                    <select class="form-control" [ngClass]="{'is-invalid': messageTipo}" id="rol" name="rol" [disabled]="inputDisabled" [(ngModel)]="gradoJson.idTipoMenu" style="margin-bottom: 1%;">
+                      <option [ngValue]="0">Seleccione una opcion</option>
+                      <option *ngFor="let tipo of dataTipos" [ngValue]="tipo.idTipoMenu">
+                        {{tipo.descripcion}}
+                      </option>
+                    </select>
+                    <label style="color: #dc3545; font-size: 80%;" *ngIf="messageTipo">{{textoMensaje}}</label>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col-md-12">
+                    <button type="button" class="btn propioBtnPrimary propioBtnRedondo" title="Nueva seccion" (click)="segundoOpen(segundoModal)" [disabled]="inputDisabled">
+                      <span class="fa fa-plus"></span>
+                    </button>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col-md-12">
+                    <div class="table-responsive">
+                      <table class="table table-bordered" style="margin-top: 2%;">
+                        <thead style="background-color: #204f81;">
+                        <tr>
+                          <th style="color: white; text-align: center;">Codigo</th>
+                          <th style="color: white; text-align: center;">Nombre</th>
+                          <th style="color: white; text-align: center;"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let seccion of seccionesTemporal">
+                          <td style="text-align: center;">{{seccion.orden}}</td>
+                          <td style="text-align: center;">{{seccion.nombre}}</td>
+                          <td style=" text-align: center;">
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                              <button type="button" *ngIf="controlBoton" class="btn propioBtnPrimary" (click)="editarSeccion(segundoModal, seccion)"><span class="fa fa-edit"></span></button>
+                              <button type="button" *ngIf="controlBoton" class="btn btn-danger" (click)="eliminarSeccion(seccion)"><span class="fa fa-times"></span></button>
+                              <button type="button" class="btn btn-warning" (click)="visualizarSeccion(segundoModal, seccion)"><span class="fa fa-external-link"></span></button>
+                            </div>
+                          </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="row" style="border-top: 1px solid #e9ecef; padding: 1rem;">
+                <div class="col-lg-8"></div>
+                <div class="col-lg-2">
+                  <button type="button" class="btn btn-outline-dark" *ngIf="controlBoton" (click)="confirmaModal()" style="width: 100%;">Guardar</button>
+                </div>
+                <div class="col-lg-2">
+                  <button type="button" class="btn btn-outline-dark" (click)="cancelar()" style="width: 100%;">Cancelar</button>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #segundoModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">{{tituloSegundoModal}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeSegundoModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label>Codigo</label>
+          <input type="number" class="form-control" [ngClass]="{'is-invalid': messageCodigoSeccion}" id="codigoSeccion" name="codigoSeccion" placeholder="Codigo" [disabled]="segundoInputDisabled" style="margin-bottom: 1%;" [(ngModel)]="seccionJson.orden">
+          <label style="color: #dc3545; font-size: 80%;" *ngIf="messageCodigoSeccion">{{textoMensajeSeccion}}</label>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label>Nombre</label>
+          <input type="text" class="form-control" [ngClass]="{'is-invalid': messageNombreSeccion}" id="nombreSeccion" name="nombreSeccion" placeholder="Nombre" [disabled]="segundoInputDisabled" style="margin-bottom: 1%;" [(ngModel)]="seccionJson.nombre">
+          <label style="color: #dc3545; font-size: 80%;" *ngIf="messageNombreSeccion">{{textoMensajeSeccion}}</label>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label>Capacidad</label>
+          <input type="number" class="form-control" [ngClass]="{'is-invalid': messageCapacidadSeccion}" id="capacidadSeccion" name="capacidadSeccion" placeholder="Capacidad" [disabled]="segundoInputDisabled" style="margin-bottom: 1%;" [(ngModel)]="seccionJson.capacidad">
+          <label style="color: #dc3545; font-size: 80%;" *ngIf="messageCapacidadSeccion">{{textoMensajeSeccion}}</label>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" *ngIf="controlSegundoBoton" (click)="confirmaSegundoModal()">Confirmar</button>
+    <button type="button" class="btn btn-outline-dark" (click)="closeSegundoModal()">Cerrar</button>
+  </div>
+</ng-template>

@@ -1,0 +1,15 @@
+<div>
+  <form class="form-signin" #loginForm = "ngForm" (ngSubmit) = "login(loginForm)">
+    <div class="row" style="margin-top: 25%; margin-left: 36%;">
+      <img src="assets/images/logo.png" width="72" height="72" class="d-inline-block align-top" alt="">
+    </div>
+    <input style="margin-top: 10%;" type="text" id="usuario" name="usuario" class="form-control" placeholder="Usuario" required autofocus ngModel>
+    <input type="password" id="pass" name="pass" class="form-control" placeholder="Contraseña" required ngModel>
+    <ngb-alert type="danger" *ngIf="message" (close)="message = null">Credenciales incorrectas.</ngb-alert>
+    <ngb-alert type="danger" *ngIf="messageBlanks" (close)="messageBlanks = null">Debe ingresar ambos campos.</ngb-alert>
+    <button class="btn btn-lg propioBtnPrimary btn-block" type="submit" style="margin-top: 10%;">Entrar</button>
+    <div class="row" style="margin-left: 30%;">
+      <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,507 @@
+<div class="container col-lg-12">
+  <div class="row" style="margin-top: 5%;">
+    <div class="col-sm-12 col-xl-12">
+      <div class="card">
+        <div class="card-header" style="background-color: #204f81!important; color: white;">
+          <div class="row">
+            <div class="col-lg-12">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 4%;"><li class="fa fa-edit fa-2x" style="margin-top: 13%;"></li></td>
+                  <td style="width: 96%;"><h3 style="margin-left: 1%; margin-top: 1%;">Inscripciones</h3></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="container" *ngIf="controlNivel === 1">
+            <div class="row">
+              <button type="button" class="btn propioBtnPrimary" (click)="formularioCreacion()">Nueva Inscripcion</button>
+            </div>
+            <div class="row" style="margin-top: 2%;">
+              <div class="col-lg-3">
+                <select id="inputState" class="form-control propioSelectFiltro" name="rolFiltro" style="margin-bottom: 3%;">
+                  <option [ngValue]="0">Seleccione un grado</option>
+                  <option *ngFor="let grado of dataGrados" [ngValue]="grado.idGrado">{{grado.nombre}}</option>
+                </select>
+              </div>
+              <div class="col-lg-3">
+                <select id="inputPeriodoFiltro" class="form-control propioSelectFiltro" name="periodoFiltro" style="margin-bottom: 3%;" [(ngModel)]="periodoActual">
+                  <option [ngValue]="0">Seleccione un periodo</option>
+                  <option *ngFor="let periodo of dataPeriodosArray" [ngValue]="periodo.idPeriodo">{{periodo.descripcion}}</option>
+                </select>
+              </div>
+              <div class="col-lg-6">
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" placeholder="Buscar..." aria-label="Recipient's username" aria-describedby="basic-addon2">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button">
+                      <i class="fa fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="table-responsive">
+                <table class="table table-bordered" style="margin-top: 1%;">
+                  <thead style="background-color: #204f81;">
+                    <tr>
+                      <th style="color: white; text-align: center;">Carne</th>
+                      <th style="color: white; text-align: center;">Alumno</th>
+                      <th style="color: white; text-align: center;">Grado</th>
+                      <th style="color: white; text-align: center;">Periodo</th>
+                      <th style="color: white; text-align: center;">Estado</th>
+                      <th style="color: white; text-align: center;"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td style=" text-align: center;">20120010</td>
+                      <td style=" text-align: center;">Henry Leonel Hernandez Estrada</td>
+                      <td style=" text-align: center;">4to. Perito</td>
+                      <td style=" text-align: center;">2018</td>
+                      <td style=" text-align: center;">Completa</td>
+                      <td style=" text-align: center;">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                          <button type="button" class="btn propioBtnPrimary"><span class="fa fa-edit"></span></button>
+                          <button type="button" class="btn btn-danger"><span class="fa fa-times"></span></button>
+                          <button type="button" class="btn btn-warning"><span class="fa fa-external-link"></span></button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row" *ngIf="controlNivel === 2 || controlNivel === 3 || controlNivel === 4">
+              <div class="col-lg-4 cardTitleSection activeCard" [ngClass]="{'cardMouse': indexInscripcion > 0, 'cardMouseBloqueo': indexInscripcion < 1}">
+                <div class="iconCard fa fa-id-card"></div>
+                <!--div class="iconCard fa fa-check-circle activeIcon"></div-->
+                <div class="stepInlineCard">
+                  <div class="titleCard">
+                    Paso 1
+                  </div>
+                  <div class="descriptionCard">
+                    Datos principales
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 cardTitleSection cardMouseBloqueo" [ngClass]="{'cardMouse': indexInscripcion > 1, 'cardMouseBloqueo': indexInscripcion < 2}">
+                <div class="iconCard fa fa-newspaper-o"></div>
+                <div class="stepInlineCard">
+                  <div class="titleCard">
+                    Paso 2
+                  </div>
+                  <div class="descriptionCard">
+                    Entrega de papeleria
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 cardTitleSection cardMouse" [ngClass]="{'cardMouse': indexInscripcion > 2, 'cardMouseBloqueo': indexInscripcion < 3}">
+                <div class="iconCard fa fa-credit-card"></div>
+                <div class="stepInlineCard">
+                  <div class="titleCard">
+                    Paso 3
+                  </div>
+                  <div class="descriptionCard">
+                    Confirmacion de pago
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="controlNivel === 2">
+              <div class="row" style="margin-top: 2%;">
+                <div class="sub-title col-lg-12">
+                  <h3>Datos academicos</h3>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 2%;">
+                <div class="col-lg-4">
+                  <label>Carne</label>
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Carne" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="button">
+                        <i class="fa fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <label>Grado a Inscribir</label>
+                  <select class="form-control fullWidth" id="gradoInscripcion" name="gradoInscripcion">
+                    <option [ngValue]="0">Seleccione una opcion</option>
+                    <option *ngFor="let grado of dataGrados" [ngValue]="grado.idGrado">{{grado.nombre}}</option>
+                  </select>
+                </div>
+                <div class="col-lg-4">
+                  <label>Periodo</label>
+                  <select class="form-control fullWidth" id="periodo" name="periodo" [(ngModel)]="periodoActual">
+                    <option [ngValue]="0">Seleccione una opcion</option>
+                    <option *ngFor="let periodo of dataPeriodosArray" [ngValue]="periodo.idPeriodo">{{periodo.descripcion}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 2%;">
+                <div class="sub-title col-lg-12">
+                  <h3>Datos del Alumno</h3>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 2%;">
+                <div class="col-lg-6">
+                  <label>Nombres</label>
+                  <input type="text" class="form-control fullWidth" placeholder="Nombres">
+                </div>
+                <div class="col-lg-6">
+                  <label>Apellidos</label>
+                  <input type="text" class="form-control fullWidth" placeholder="Apellidos">
+                </div>
+              </div>
+              <div class="row" style="margin-top: 2%;">
+                <div class="col-lg-6">
+                  <label>Genero</label>
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-lg-6 text-center">
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="exampleRadios" value="option2">
+                            <label class="form-check-label">
+                              Masculino
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-lg-6 text-center" style="border-left: 1px solid rgb(204, 204, 204);">
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="exampleRadios" value="option2">
+                            <label class="form-check-label">
+                              Femenino
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label>Fecha de Nacimiento</label>
+                    <div class="input-group">
+                      <input class="form-control" placeholder="yyyy-mm-dd"
+                             name="fechaNacimiento" ngbDatepicker #d="ngbDatepicker">
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                          <span class="fa fa-calendar"></span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 2%;">
+                <div class="col-lg-4">
+                  <label>Telefono casa</label>
+                  <input type="number" class="form-control fullWidth" placeholder="Telefono casa">
+                </div>
+                <div class="col-lg-4">
+                  <label>Telefono celular</label>
+                  <input type="number" class="form-control fullWidth" placeholder="Telefono celular">
+                </div>
+                <div class="col-lg-4">
+                  <label>Correo electronico</label>
+                  <input type="mail" class="form-control fullWidth" placeholder="Correo electronico">
+                </div>
+              </div>
+              <div class="row" style="margin-top: 2%;">
+                <div class="col-lg-4">
+                  <div class="form-row fullWidth">
+                    <div class="form-group fullWidth">
+                      <label>Profesion</label>
+                      <select class="form-control fullWidth" id="profesion" name="profesion">
+                        <option [ngValue]="0">Seleccione una opcion</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-row fullWidth">
+                    <div class="form-group fullWidth">
+                      <label>Estado de civil</label>
+                      <select class="form-control fullWidth" id="estadoCivil" name="estadoCivil">
+                        <option [ngValue]="0">Seleccione una opcion</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-row fullWidth">
+                    <div class="form-group fullWidth">
+                      <label>Ocupacion</label>
+                      <select class="form-control fullWidth" id="ocupacion" name="ocupacion">
+                        <option [ngValue]="0">Seleccione una opcion</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 1%;">
+                <div class="col-lg-6">
+                  <label>Identificacion</label>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend" style="width: 30%;">
+                      <button class="btn btn-outline-secondary dropdown-toggle fullWidth" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tip. Iden.</button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item">Tip. Iden.</a>
+                        <a class="dropdown-item">DPI</a>
+                        <a class="dropdown-item">Pasaporte</a>
+                      </div>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Text input with dropdown button">
+                  </div>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 1%;">
+                <div class="sub-title col-lg-12">
+                  <h3>Direccion</h3>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 1%;">
+                <div class="col-lg-4">
+                  <div class="form-row fullWidth">
+                    <div class="form-group fullWidth">
+                      <label>Pais</label>
+                      <select class="form-control fullWidth" id="pais" name="profesion">
+                        <option [ngValue]="0">Seleccione una opcion</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-row fullWidth">
+                    <div class="form-group fullWidth">
+                      <label>Departamento</label>
+                      <select class="form-control fullWidth" id="departamento" name="estadoCivil">
+                        <option [ngValue]="0">Seleccione una opcion</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-row fullWidth">
+                    <div class="form-group fullWidth">
+                      <label>Municipio</label>
+                      <select class="form-control fullWidth" id="municipio" name="ocupacion">
+                        <option [ngValue]="0">Seleccione una opcion</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 1%;">
+                <div class="col-lg-12">
+                  <label>Direccion</label>
+                  <input type="text" class="form-control fullWidth" placeholder="Direccion">
+                </div>
+              </div>
+              <div class="row" style="margin-top: 1%;">
+                <div class="sub-title col-lg-12">
+                  <h3>Datos del Padre</h3>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 2%;">
+                <div class="col-lg-6">
+                  <label>Nombres</label>
+                  <input type="text" class="form-control fullWidth" placeholder="Nombres">
+                </div>
+                <div class="col-lg-6">
+                  <label>Apellidos</label>
+                  <input type="text" class="form-control fullWidth" placeholder="Apellidos">
+                </div>
+              </div>
+              <div class="row" style="margin-top: 2%;">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label>Fecha de Nacimiento</label>
+                    <div class="input-group">
+                      <input class="form-control" placeholder="yyyy-mm-dd"
+                             name="fechaNacimiento" ngbDatepicker #d="ngbDatepicker">
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                          <span class="fa fa-calendar"></span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <label>Identificacion</label>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend" style="width: 30%;">
+                      <button class="btn btn-outline-secondary dropdown-toggle fullWidth" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tip. Iden.</button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item">Tip. Iden.</a>
+                        <a class="dropdown-item">DPI</a>
+                        <a class="dropdown-item">Pasaporte</a>
+                      </div>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Text input with dropdown button">
+                  </div>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 2%;">
+                <div class="col-lg-4">
+                  <label>Telefono casa</label>
+                  <input type="number" class="form-control fullWidth" placeholder="Telefono casa">
+                </div>
+                <div class="col-lg-4">
+                  <label>Telefono celular</label>
+                  <input type="number" class="form-control fullWidth" placeholder="Telefono celular">
+                </div>
+                <div class="col-lg-4">
+                  <label>Correo electronico</label>
+                  <input type="mail" class="form-control fullWidth" placeholder="Correo electronico">
+                </div>
+              </div>
+              <div class="row" style="margin-top: 2%;">
+                <div class="col-lg-4">
+                  <div class="form-row fullWidth">
+                    <div class="form-group fullWidth">
+                      <label>Profesion</label>
+                      <select class="form-control fullWidth" id="profesion" name="profesion">
+                        <option [ngValue]="0">Seleccione una opcion</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-row fullWidth">
+                    <div class="form-group fullWidth">
+                      <label>Estado de civil</label>
+                      <select class="form-control fullWidth" id="estadoCivil" name="estadoCivil">
+                        <option [ngValue]="0">Seleccione una opcion</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-row fullWidth">
+                    <div class="form-group fullWidth">
+                      <label>Ocupacion</label>
+                      <select class="form-control fullWidth" id="ocupacion" name="ocupacion">
+                        <option [ngValue]="0">Seleccione una opcion</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 1%;">
+                <div class="sub-title col-lg-12">
+                  <h3>Datos de la Madre</h3>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 2%;">
+                <div class="col-lg-6">
+                  <label>Nombres</label>
+                  <input type="text" class="form-control fullWidth" placeholder="Nombres">
+                </div>
+                <div class="col-lg-6">
+                  <label>Apellidos</label>
+                  <input type="text" class="form-control fullWidth" placeholder="Apellidos">
+                </div>
+              </div>
+              <div class="row" style="margin-top: 2%;">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label>Fecha de Nacimiento</label>
+                    <div class="input-group">
+                      <input class="form-control" placeholder="yyyy-mm-dd"
+                             name="fechaNacimiento" ngbDatepicker #d="ngbDatepicker">
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                          <span class="fa fa-calendar"></span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <label>Identificacion</label>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend" style="width: 30%;">
+                      <button class="btn btn-outline-secondary dropdown-toggle fullWidth" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tip. Iden.</button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item">Tip. Iden.</a>
+                        <a class="dropdown-item">DPI</a>
+                        <a class="dropdown-item">Pasaporte</a>
+                      </div>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Text input with dropdown button">
+                  </div>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 2%;">
+                <div class="col-lg-4">
+                  <label>Telefono casa</label>
+                  <input type="number" class="form-control fullWidth" placeholder="Telefono casa">
+                </div>
+                <div class="col-lg-4">
+                  <label>Telefono celular</label>
+                  <input type="number" class="form-control fullWidth" placeholder="Telefono celular">
+                </div>
+                <div class="col-lg-4">
+                  <label>Correo electronico</label>
+                  <input type="mail" class="form-control fullWidth" placeholder="Correo electronico">
+                </div>
+              </div>
+              <div class="row" style="margin-top: 2%;">
+                <div class="col-lg-4">
+                  <div class="form-row fullWidth">
+                    <div class="form-group fullWidth">
+                      <label>Profesion</label>
+                      <select class="form-control fullWidth" id="profesion" name="profesion">
+                        <option [ngValue]="0">Seleccione una opcion</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-row fullWidth">
+                    <div class="form-group fullWidth">
+                      <label>Estado de civil</label>
+                      <select class="form-control fullWidth" id="estadoCivil" name="estadoCivil">
+                        <option [ngValue]="0">Seleccione una opcion</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-row fullWidth">
+                    <div class="form-group fullWidth">
+                      <label>Ocupacion</label>
+                      <select class="form-control fullWidth" id="ocupacion" name="ocupacion">
+                        <option [ngValue]="0">Seleccione una opcion</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row" style="border-top: 1px solid #e9ecef; padding: 1rem; margin-top: 3%;">
+              <div class="col-lg-8"></div>
+              <div class="col-lg-2">
+                <button type="button" class="btn btn-outline-dark" *ngIf="controlBoton" (click)="confirmarFormulario()" style="width: 100%; margin-top: 10%;">Siguiente</button>
+              </div>
+              <div class="col-lg-2">
+                <button type="button" class="btn btn-outline-dark" (click)="cerrarFormulario()" style="width: 100%; margin-top: 10%;">Cancelar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

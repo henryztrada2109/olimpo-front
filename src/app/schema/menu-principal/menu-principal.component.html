@@ -1,0 +1,182 @@
+<div class="container" @enterState>
+  <div class="row" style="margin-top: 5%;">
+    <div class="col-sm-12 col-xl-12">
+      <div class="card">
+        <div class="card-header" style="background-color: #204f81!important; color: white;">
+          <div class="row">
+            <div class="col-lg-12">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 4%;"><li class="fa fa-cog fa-2x" style="margin-top: 6%;"></li></td>
+                  <td style="width: 96%"><h3 style="margin-top: 1%;"> Definicion de Menus</h3></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4">
+              <select class="form-control" id="exampleFormControlSelect1" name="opcionSeleccionada" style="margin-top: 3%;" (change)="onChange()" [(ngModel)]="tipoSeleccionado">
+                <option [ngValue]="0">Seleccione un tipo de menu</option>
+                <option *ngFor="let dato of dataTipo" [ngValue]="dato.idTipoMenu">
+                  {{dato.descripcion}}
+                </option>
+              </select>
+            </div>
+            <div class="col-lg-4"></div>
+          </div>
+          <div class="row" *ngIf="disabledContent">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+              <div class="row" style="margin-top: 3%;">
+                <button type="button" class="btn propioBtnPrimary" (click)="open(content)">Agregar</button>
+              </div>
+              <div class="row" style="margin-top: 3%;">
+                <ngb-accordion [closeOthers]="true" style="width: 100%;" (panelChange)="listaTablas($event)">
+                  <ngb-panel *ngFor="let menu of dataMenuPrincipal" id="{{menu.idMenuPrincipal}}" title="{{menu.descripcion}}" >
+                    <ng-template ngbPanelContent>
+                      <div class="row">
+                        <div class="col-lg-3"><button type="button" style="width: 100%; margin-bottom: 1%;" class="btn btn-secondary" (click)="modalEditarMenuPrincipal(menu,content)">Modificar</button></div>
+                        <div class="col-lg-3"><button type="button" style="width: 100%; margin-bottom: 1%;" class="btn btn-danger" (click)="borrarMenuPrincipal(menu)">Eliminar</button></div>
+                        <div class="col-lg-3"><button type="button" style="width: 100%; margin-bottom: 1%;" class="btn propioBtnPrimary" (click)="modalVisualizarMenuPrincipal(menu,content)">Visualizar</button></div>
+                        <div class="col-lg-3"><button type="button" style="width: 100%; margin-bottom: 1%;" class="btn btn-success" (click)="openSubModal(modalSub, menu.idMenuPrincipal)">Agregar Sub Menu</button></div>
+                      </div>
+                      <div class="row">
+                        <table class="table table-bordered" style="margin-top: 3%;">
+                          <thead>
+                          <tr>
+                            <th scope="col" style="width: 10%; text-align: center">No.</th>
+                            <th scope="col" style="width: 70%; text-align: center">Descripcion</th>
+                            <th scope="col" style="width: 20%; text-align: center">Opciones</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr *ngFor="let secundario of dataMenuSecundario">
+                            <th scope="row">{{secundario.orden}}</th>
+                            <td>{{secundario.descripcion}}</td>
+                            <td style="text-align: center">
+                              <div class="btn-group" role="group" aria-label="Basic example">
+                                <button type="button" class="btn propioBtnPrimary" (click)="modalModificarMenuSecundario(secundario,modalSub)"><span class="fa fa-edit"></span></button>
+                                <button type="button" class="btn btn-danger" (click)="borrarMenuSecundario(secundario)"><span class="fa fa-times"></span></button>
+                                <button type="button" class="btn btn-warning" (click)="modalVisualizarMenuSecundario(secundario,modalSub)"><span class="fa fa-external-link"></span></button>
+                              </div>
+                            </td>
+                          </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </ng-template>
+                  </ngb-panel>
+                </ngb-accordion>
+              </div>
+            </div>
+            <div class="col-lg-1"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">{{tituloModal}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label>Orden</label>
+        <input type="text" class="form-control" style="margin-bottom: 1%;" aria-describedby="orden" placeholder="Orden" name="orden" required [(ngModel)]="menuPrincipalJson.orden" [autofocus]="focusOrden" [disabled]="inputDisabled">
+        <ngb-alert *ngIf="messageOrden" type="danger" (close)="messageOrden = null">{{textoMensaje}}</ngb-alert>
+      </div>
+      <div class="form-group">
+        <label>Descripcion</label>
+        <input type="text" class="form-control" style="margin-bottom: 1%;" aria-describedby="descripcion" placeholder="Descripcion" name="descripcion" required [(ngModel)]="menuPrincipalJson.descripcion" [disabled]="inputDisabled">
+        <ngb-alert *ngIf="messageDescripcion" type="danger" (close)="messageDescripcion = null">{{textoMensaje}}</ngb-alert>
+      </div>
+      <div class="form-group">
+        <label>Icono</label>
+        <div class="input-group mb-3" style="margin-bottom: 1%;">
+          <select class="custom-select" id="inputGroupSelect02" [(ngModel)]="menuPrincipalJson.idIcono" name="selectIcono" [disabled]="inputDisabled" (change)="iconoChange()">
+            <option [ngValue]="0">Seleccione una opcion</option>
+            <option *ngFor="let dato of dataIconos" [ngValue]="dato.idIcono">
+              {{dato.nombre}}
+            </option>
+          </select>
+          <div class="input-group-append">
+            <label class="input-group-text" for="inputGroupSelect02"><span class="fa {{claseIcono}}"></span></label>
+          </div>
+        </div>
+        <ngb-alert *ngIf="messageIcono" type="danger" (close)="messageIcono = null">{{textoMensaje}}</ngb-alert>
+      </div>
+      <div class="form-group">
+        <label>Ejecuta funcion:</label>
+        <div class="input-group mb-3" style="margin-bottom: 1%;">
+          <div class="custom-control custom-radio custom-control-inline" style="margin-left: 37%;">
+            <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input" [(ngModel)]="radio" [value]="true">
+            <label class="custom-control-label" for="customRadioInline1">Si</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input" [(ngModel)]="radio" [value]="false">
+            <label class="custom-control-label" for="customRadioInline2">No</label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" *ngIf="radio">
+        <label>Opcion</label>
+        <select class="form-control" style="margin-bottom: 1%;" [(ngModel)]="menuPrincipalJson.idOpciones" name="opciones" [disabled]="inputDisabled">
+          <option [ngValue]="0">Seleccione una opcion</option>
+          <option *ngFor="let dato of dataOpciones" [ngValue]="dato.idOpciones">
+            {{dato.descripcion}}
+          </option>
+        </select>
+        <ngb-alert *ngIf="messageOpcion" type="danger" (close)="messageOpcion = null">{{textoMensaje}}</ngb-alert>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" *ngIf="controlBoton" (click)="confirmaModal()">Confirmar</button>
+    <button type="button" class="btn btn-outline-dark" (click)="closeModal()">Cerrar</button>
+  </div>
+</ng-template>
+
+<ng-template #modalSub let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">{{tituloModal}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeSubModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label>Orden</label>
+        <input type="text" class="form-control" style="margin-bottom: 1%;" aria-describedby="orden" placeholder="Orden" name="orden" required [(ngModel)]="menuSecundarioJson.orden" [autofocus]="focusOrden" [disabled]="inputDisabled">
+        <ngb-alert *ngIf="messageSubOrden" type="danger" (close)="messageSubOrden = null">{{textoMensaje}}</ngb-alert>
+      </div>
+      <div class="form-group">
+        <label>Descripcion</label>
+        <input type="text" class="form-control" style="margin-bottom: 1%;" aria-describedby="descripcion" placeholder="Descripcion" name="descripcion" required [(ngModel)]="menuSecundarioJson.descripcion" [disabled]="inputDisabled">
+        <ngb-alert *ngIf="messageSubDescripcion" type="danger" (close)="messageSubDescripcion = null">{{textoMensaje}}</ngb-alert>
+      </div>
+      <div class="form-group">
+        <label>Opcion</label>
+        <select class="form-control" style="margin-bottom: 1%;" [(ngModel)]="menuSecundarioJson.idOpciones" name="opciones" [disabled]="inputDisabled">
+          <option [ngValue]="0">Seleccione una opcion</option>
+          <option *ngFor="let dato of dataOpciones" [ngValue]="dato.idOpciones">
+            {{dato.descripcion}}
+          </option>
+        </select>
+        <ngb-alert *ngIf="messageSubOpcion" type="danger" (close)="messageSubOpcion = null">{{textoMensaje}}</ngb-alert>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" *ngIf="controlBoton" (click)="confirmaSubModal()">Confirmar</button>
+    <button type="button" class="btn btn-outline-dark" (click)="closeSubModal()">Cerrar</button>
+  </div>
+</ng-template>

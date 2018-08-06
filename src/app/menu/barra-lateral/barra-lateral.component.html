@@ -1,0 +1,23 @@
+<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+  <div class="sidebar-sticky">
+    <ul class="nav flex-column">
+      <li class="nav-item" *ngFor="let estructura of dataEstructura">
+        <a class="nav-link cambioColor" *ngIf="estructura.ejecuta === 1" routerLink="{{estructura.path}}" style="font-weight: normal;">
+          <i class="fa {{estructura.clase}}"></i>
+          {{estructura.descripcion}}
+        </a>
+        <a class="nav-link cambioColor" *ngIf="estructura.ejecuta === 0" (click)="estructura.control = !estructura.control" [attr.aria-expanded]="!estructura.control" aria-controls="estructura.idMenuPrincipal" style="cursor: pointer; font-weight: normal;">
+          <i class="fa {{estructura.clase}}"></i>
+          {{estructura.descripcion}}
+        </a>
+        <ul class="nav collapse" *ngIf="estructura.ejecuta === 0" id="{{estructura.idMenuPrincipal}}" [ngbCollapse]="estructura.control">
+          <li style="width: 100%;" class="cambioColor" *ngFor="let subMenu of estructura.listadoSubEstructura">
+            <a class="nav-link" routerLink="{{subMenu.path}}" style="font-weight: normal; margin-left: 10%;">
+              <i class="fa fa-chevron-right"></i> {{subMenu.descripcion}}
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>

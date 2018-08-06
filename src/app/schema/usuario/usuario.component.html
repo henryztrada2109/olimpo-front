@@ -1,0 +1,138 @@
+<div class="container" @enterState>
+  <div class="row" style="margin-top: 5%;">
+    <div class="col-sm-12 col-xl-12">
+      <div class="card">
+        <div class="card-header" style="background-color: #204f81!important; color: white;">
+          <div class="row">
+            <div class="col-lg-12">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 4%;"><li class="fa fa-cog fa-2x" style="margin-top: 6%;"></li></td>
+                  <td style="width: 96%"><h3 style="margin-top: 1%;"> Periodos</h3></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-1">
+            </div>
+            <div class="col-lg-10">
+              <div class="row" style="margin-top: 2%;">
+                <button type="button" class="btn propioBtnPrimary" (click)="open(content)">Nuevo Usuario</button>
+              </div>
+              <div class="row">
+                <form class="col-md-12" style="margin-top: 2%;">
+                  <div class="form-row">
+                    <div class="form-group col-md-3">
+                      <label for="inputUsuarioFiltro">Usuario</label>
+                      <input type="text" class="form-control" id="inputUsuarioFiltro" placeholder="Usuario" (change)="filtrar()" [(ngModel)]="usuarioFiltro" name="usuarioFiltro">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputState">Rol</label>
+                      <select id="inputState" class="form-control" (change)="filtrar()" [(ngModel)]="rolFiltro" name="rolFiltro">
+                        <option [ngValue]="0">Seleccione una opcion</option>
+                        <option *ngFor="let role of dataRoles" [ngValue]="role.idRole">
+                          {{role.nombre}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="row">
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th style="text-align: center; width: 25%;">Usuario</th>
+                        <th style="text-align: center; width: 50%;">Rol</th>
+                        <th style="text-align: center; width: 25%;">Opciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let usuario of dataArray">
+                        <td>{{usuario.usuarioApp}}</td>
+                        <td>{{usuario.descripcionRol}}</td>
+                        <td style="text-align: center">
+                          <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn propioBtnPrimary" (click)="modalEditar(usuario, content)"><span class="fa fa-edit"></span></button>
+                            <button type="button" class="btn btn-danger" (click)="borrar(usuario)"><span class="fa fa-times"></span></button>
+                            <button type="button" class="btn btn-info" (click)="modalVisualizar(usuario, content)"><span class="fa fa-external-link"></span></button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="row">
+                <table style="width: 100%;">
+                  <tr>
+                    <td style="text-align: right;">
+                      <ngb-pagination class="d-flex justify-content-end" [collectionSize]="length" [(page)]="pageIndex" aria-label="Default pagination" (pageChange)="pageEvent = refrescar($event)" [maxSize]="5" [pageSize]="pageSize"></ngb-pagination>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div class="col-lg-1">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">{{tituloModal}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label>Usuario</label>
+        <input type="text" class="form-control" style="margin-bottom: 1%" aria-describedby="usuario" placeholder="Usuario" name="usuario" required [(ngModel)]="usuarioJson.usuarioApp" [autofocus]="focusUsuario" [disabled]="inputDisabled">
+        <ngb-alert *ngIf="messageUsuario" type="danger" (close)="messageUsuario = null">{{messageText}}</ngb-alert>
+      </div>
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input type="password" class="form-control" style="margin-bottom: 1%" aria-describedby="pass" placeholder="Contraseña" name="pass" required [(ngModel)]="usuarioJson.pass" [disabled]="inputDisabled">
+        <ngb-alert *ngIf="messagePass" type="danger" (close)="messagePass = null">{{messageText}}</ngb-alert>
+      </div>
+      <div class="form-group" *ngIf="botonConfir">
+        <label>Confirmar la contraseña</label>
+        <input type="password" class="form-control" style="margin-bottom: 1%" aria-describedby="confir" placeholder="Confirmar la contraseña" name="passConfir" required [(ngModel)]="confirPass" [disabled]="inputDisabled">
+        <ngb-alert *ngIf="messageConf" type="danger" (close)="messageConf = null">{{messageText}}</ngb-alert>
+      </div>
+      <div class="form-group">
+        <label>Rol</label>
+        <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="usuarioJson.idRole" name="opcionSeleccionada" [disabled]="inputDisabled" style="margin-bottom: 1%">
+          <option [ngValue]="0">Seleccione una opcion</option>
+          <option *ngFor="let role of dataRoles" [ngValue]="role.idRole">
+            {{role.nombre}}
+          </option>
+        </select>
+        <ngb-alert *ngIf="messageRole" type="danger" (close)="messageRole = null">{{messageText}}</ngb-alert>
+      </div>
+      <div class="form-group">
+        <label>Tipo de Menu</label>
+        <select class="form-control" id="tipoMenu" [(ngModel)]="usuarioJson.idTipoMenu" name="opcionTipoMenu" [disabled]="inputDisabled" style="margin-bottom: 1%">
+          <option [ngValue]="0">Seleccione una opcion</option>
+          <option *ngFor="let tipo of dataTipos" [ngValue]="tipo.idTipoMenu">
+            {{tipo.descripcion}}
+          </option>
+        </select>
+        <ngb-alert *ngIf="messageTipo" type="danger" (close)="messageTipo = null">{{messageText}}</ngb-alert>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" *ngIf="controlBoton" (click)="confirmaModal()">Confirmar</button>
+    <button type="button" class="btn btn-outline-dark" (click)="closeModal()">Cerrar</button>
+  </div>
+</ng-template>

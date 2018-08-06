@@ -1,0 +1,109 @@
+<div class="container" @enterState>
+  <div class="row" style="margin-top: 5%;">
+    <div class="col-sm-12 col-xl-12">
+      <div class="card">
+        <div class="card-header" style="background-color: #204f81!important; color: white;">
+          <div class="row">
+            <div class="col-lg-12">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 4%;"><li class="fa fa-cog fa-2x" style="margin-top: 6%;"></li></td>
+                  <td style="width: 96%"><h3 style="margin-top: 1%;"> Periodos</h3></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-1">
+            </div>
+            <div class="col-lg-10">
+              <div class="row">
+                <form class="col-md-12" style="margin-top: 2%;">
+                  <div class="form-row">
+                    <div class="form-group col-md-3">
+                      <label for="inputUsuarioFiltro">Usuario</label>
+                      <input type="text" class="form-control" id="inputUsuarioFiltro" placeholder="Usuario" (change)="filtrar()" [(ngModel)]="usuarioFiltro" name="usuarioFiltro">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputState">Rol</label>
+                      <select id="inputState" class="form-control" (change)="filtrar()" [(ngModel)]="rolFiltro" name="rolFiltro">
+                        <option [ngValue]="0">Seleccione una opcion</option>
+                        <option *ngFor="let role of dataRoles" [ngValue]="role.idRole">
+                          {{role.nombre}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="row">
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                    <tr>
+                      <th style="text-align: center; width: 25%;">Usuario</th>
+                      <th style="text-align: center; width: 45%;">Rol</th>
+                      <th style="text-align: center; width: 30%;">Opciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let usuario of dataArray">
+                      <td>{{usuario.usuarioApp}}</td>
+                      <td>{{usuario.descripcionRol}}</td>
+                      <td style="text-align: center;">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                          <button type="button" class="btn btn-info" (click)="modalVisualizar(usuario, content)"><span class="fa fa-external-link"></span></button>
+                        </div>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="row">
+                <table style="width: 100%;">
+                  <tr>
+                    <td style="text-align: right;">
+                      <ngb-pagination class="d-flex justify-content-end" [collectionSize]="length" [(page)]="pageIndex" aria-label="Default pagination" (pageChange)="pageEvent = refrescar($event)" [maxSize]="5"></ngb-pagination>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div class="col-lg-1">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">{{tituloModal}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="list-group">
+        <a class="list-group-item" *ngFor="let empresa of dataEmpresas">
+          <div class="checkbox pull-left">
+            <label>
+              <input type="checkbox" value="" name="{{empresa.nombre}}" [(ngModel)]="empresa.relacion" (change)="cambioAgencia(empresa)">
+            </label>
+          </div>
+          <div class="pull-left" style="margin-left: 3%;">
+            <h4 class="list-group-item-heading">{{empresa.nombre}}</h4>
+          </div>
+        </a>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="closeModal()">Cerrar</button>
+  </div>
+</ng-template>

@@ -1,0 +1,109 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~loaders.css/loaders.min.css";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+// BUSYNESS
+.loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  color: pink;
+  top: 0;
+  background-color: rgba(0,0,0, .8);
+  z-index: 999999;
+
+  .loader-inner {
+    margin-top: 50vh;
+    margin-left: 50vw;
+  }
+}
+
+.btnPrimaryMaterial {
+  color: white;
+  background-color: #204f81!important;
+}
+
+.propioBtnPrimary {
+  color: white;
+  background-color: #204f81!important;
+  border-color: #204f81!important;
+}
+
+.propioBtnRedondo {
+  width: 40px;
+  height: 40px;
+  border-bottom-left-radius: 20px;
+  border-top-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.sub-title {
+  border-bottom: 1px solid #EAEAEA;
+}
+
+.cardTitleSection {
+  border: 1px solid #E4E4E4;
+  padding: 1em;
+  padding-left: 2em;
+  text-align: left;
+}
+
+.cardMouse:hover {
+  cursor: pointer;
+}
+
+.cardMouseBloqueo:hover {
+  cursor: no-drop;
+}
+
+.iconCard {
+  font-size: 2.5em!important;
+  display: inline-block;
+  margin-right: 0.25em;
+  vertical-align: middle;
+}
+
+.stepInlineCard {
+  display: inline-block;
+  vertical-align: middle;
+  text-align: left;
+}
+
+.titleCard {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.descriptionCard {
+  font-size: 0.9em;
+}
+
+.activeCard {
+  background-color: #EAEAEA;
+}
+
+.activeIcon {
+  color: #00bc65;
+}
+
+.encabezadoTablaMaterial {
+  background-color: #204f81;
+  color: white;
+}
+
+.textCenter {
+  text-align: center;
+}
+
+.textRight {
+  text-align: right;
+}
+
+.textLeft {
+  text-align: left;
+}

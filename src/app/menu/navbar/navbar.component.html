@@ -1,0 +1,54 @@
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top flex-md-nowrap shadow" style="background-color: #204f81!important;">
+  <div class="col-lg-2">
+    <table>
+      <tr>
+        <td style="width: 95%;">
+          <a class="navbar-brand" routerLink="/inicio">Byte</a>
+        </td>
+        <td style="width: 5%;">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="col-lg-8 collapse  navbar-collapse">
+    <span class="navbar-text">
+      {{nombreEmpresa}}
+    </span>
+  </div>
+  <div class="collapse nav-position" id="navbarSupportedContent">
+    <form class="form-inline my-2 my-lg-0">
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap" *ngFor="let estructura of dataEstructura">
+          <a class="nav-link" *ngIf="estructura.ejecuta === 1" routerLink="{{estructura.path}}">
+            <i class="fa {{estructura.clase}}"></i>
+            {{estructura.descripcion}}
+          </a>
+          <a class="nav-link" *ngIf="estructura.ejecuta === 0" (click)="estructura.control = !estructura.control" [attr.aria-expanded]="!estructura.control" aria-controls="estructura.idMenuPrincipal" style="cursor: pointer">
+            <i class="fa {{estructura.clase}}"></i>
+            {{estructura.descripcion}}
+          </a>
+          <ul class="nav collapse" *ngIf="estructura.ejecuta === 0" id="{{estructura.idMenuPrincipal}}" [ngbCollapse]="estructura.control">
+            <li style="margin-left: 10%; width: 100%;" *ngFor="let subMenu of estructura.listadoSubEstructura"><a class="nav-link" routerLink="{{subMenu.path}}"><i class="fa fa-chevron-right"></i> {{subMenu.descripcion}}</a></li>
+          </ul>
+        </li>
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" (click)="logout()"><i class="fa fa-sign-out"></i> Cerrar Sesion</a>
+        </li>
+      </ul>
+    </form>
+  </div>
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav mr-auto">
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" (click)="logout()">Cerrar Sesion</a>
+        </li>
+      </ul>
+    </form>
+  </div>
+</nav>

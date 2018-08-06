@@ -1,0 +1,95 @@
+<div class="container" @enterState>
+  <div class="row" style="margin-top: 5%;">
+    <div class="col-sm-12 col-xl-12">
+      <div class="card">
+        <div class="card-header" style="background-color: #204f81!important; color: white;">
+          <div class="row">
+            <div class="col-lg-12">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 4%;"><li class="fa fa-cog fa-2x" style="margin-top: 6%;"></li></td>
+                  <td style="width: 96%"><h3 style="margin-top: 1%;"> Mantenimiento de Roles</h3></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-1">
+            </div>
+            <div class="col-lg-10">
+              <div class="row" style="margin-top: 3%;">
+                <button type="button" class="btn propioBtnPrimary" (click)="open(content)">Nuevo</button>
+              </div>
+              <div class="row" style="margin-top: 5%;">
+                <div class="table-responsive">
+                  <table class="table table-bordered">
+                    <thead style="background-color: #204f81;">
+                      <tr>
+                        <th style="color: white; text-align: center;">Codigo</th>
+                        <th style="color: white; text-align: center;">Nombre</th>
+                        <th style="color: white; text-align: center;">Opciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let role of datax">
+                        <td>{{role.codigo}}</td>
+                        <td>{{role.nombre}}</td>
+                        <td style="text-align: center">
+                          <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn propioBtnPrimary" (click)="modalEditar(role, content)"><span class="fa fa-edit"></span></button>
+                            <button type="button" class="btn btn-danger" (click)="borrar(role)"><span class="fa fa-times"></span></button>
+                            <button type="button" class="btn btn-warning" (click)="modalVisualizar(role, content)"><span class="fa fa-external-link"></span></button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="row">
+                <table style="width: 100%;">
+                  <tr>
+                    <td style="text-align: right;">
+                      <ngb-pagination class="d-flex justify-content-end" [collectionSize]="length" [(page)]="pageIndex" aria-label="Default pagination" (pageChange)="pageEvent = refrescar($event)" [maxSize]="5" [pageSize]="pageSize"></ngb-pagination>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div class="col-lg-1">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">{{tituloModal}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label>Codigo</label>
+        <input type="text" class="form-control" aria-describedby="codigo" placeholder="Codigo" name="codigo" required [(ngModel)]="roleJson.codigo" [autofocus]="focusCodigo" [disabled]="inputDisabled">
+        <ngb-alert *ngIf="messageCodigo" type="danger" (close)="messageCodigo = null">Es necesario ingresar un codigo.</ngb-alert>
+        <ngb-alert *ngIf="messageCodigo2" type="danger" (close)="messageCodigo2 = null">Codigo de registro ya existe.</ngb-alert>
+      </div>
+      <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" class="form-control" placeholder="Nombre" name="nombre" required [(ngModel)]="roleJson.nombre" [disabled]="inputDisabled">
+        <ngb-alert *ngIf="messageNombre" type="danger" (close)="messageNombre = null">Es necesario ingresar un nombre.</ngb-alert>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" *ngIf="controlBoton" (click)="confirmaModal()">Confirmar</button>
+    <button type="button" class="btn btn-outline-dark" (click)="closeModal()">Cerrar</button>
+  </div>
+</ng-template>

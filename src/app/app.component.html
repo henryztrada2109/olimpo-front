@@ -1,0 +1,10 @@
+<bs-busyness></bs-busyness>
+<app-navbar *ngIf="isLocal"></app-navbar>
+<div [ngClass]="{'container-fluid': isLocal}">
+    <div [ngClass]="{'row': isLocal}">
+        <app-barra-lateral *ngIf="isLocal"></app-barra-lateral>
+        <main role="main" [ngClass]="{'col-md-9': isLocal, 'ml-sm-auto': isLocal, 'col-lg-10': isLocal, 'px-4': isLocal}">
+            <router-outlet></router-outlet>
+        </main>
+    </div>
+</div>

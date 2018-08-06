@@ -1,0 +1,34 @@
+<div class="row" style="margin-top: 6%;" @enterState>
+  <div class="col-lg-4">
+  </div>
+  <div class="col-lg-5">
+    <div class="row">
+      <div class="card" style="width: 25rem; margin-left: 3%;">
+        <div class="card-body text-center">
+          <img class="card-img-top" src="/assets/images/logo.png" alt="Card image cap" style="width: 70px; height: 70px;">
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Selección de empresa a trabajar</h5>
+          <p class="card-text"></p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item" *ngFor="let empresa of dataEmpresa">
+            <table>
+              <tbody>
+              <tr>
+                <td width="90%">{{empresa.nombre}}</td>
+                <td width="10%"><button type="button" class="btn propioBtnPrimary" (click)="seleccion(empresa)"><span class="fa fa-check"></span></button></td>
+              </tr>
+              </tbody>
+            </table>
+          </li>
+        </ul>
+        <div class="card-body text-center">
+          <a class="btn propioBtnPrimary" (click)="logout()" style="color: white;">Cerrar Sesion</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+  </div>
+</div>
