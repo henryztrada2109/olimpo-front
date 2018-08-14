@@ -61,27 +61,54 @@
             <div class="row">
               <form class="col-lg-12">
                 <div class="form-row">
-                  <div class="form-group col-md-6">
+                  <div class="form-group col-md-2">
                     <label>Codigo</label>
                     <input type="text" class="form-control" [ngClass]="{'is-invalid': messageCodigo}" id="codigo" name="codigo" placeholder="Codigo" [disabled]="inputDisabled" style="margin-bottom: 1%;" [(ngModel)]="gradoJson.orden">
                     <label style="color: #dc3545; font-size: 80%;" *ngIf="messageCodigo">{{textoMensaje}}</label>
                   </div>
-                  <div class="form-group col-md-6">
+                  <div class="form-group col-md-5">
                     <label>Nombre</label>
                     <input type="text" class="form-control" [ngClass]="{'is-invalid': messageNombre}" id="nombre" name="nombre" placeholder="Nombre" [disabled]="inputDisabled" [(ngModel)]="gradoJson.nombre" style="margin-bottom: 1%;">
                     <label style="color: #dc3545; font-size: 80%;" *ngIf="messageNombre">{{textoMensaje}}</label>
                   </div>
+                  <div class="form-group col-md-5">
+                    <label>Costo Inscripcion</label>
+                    <input type="number" class="form-control" [ngClass]="{'is-invalid': messageCostoIns}" id="costoIns" name="costoIns" placeholder="Costo Inscripcion" [disabled]="inputDisabled" [(ngModel)]="gradoJson.costoInscripcion" style="margin-bottom: 1%;">
+                    <label style="color: #dc3545; font-size: 80%;" *ngIf="messageCostoIns">{{textoMensaje}}</label>
+                  </div>
                 </div>
                 <div class="form-row">
-                  <div class="form-group col-md-6">
+                  <div class="form-group col-md-4">
+                    <label>Costo Cuota</label>
+                    <input type="text" class="form-control" [ngClass]="{'is-invalid': messageCostoCuota}" id="costoCuota" name="costoCuota" placeholder="Costo Cuota" [disabled]="inputDisabled" [(ngModel)]="gradoJson.costoCuota" style="margin-bottom: 1%;">
+                    <label style="color: #dc3545; font-size: 80%;" *ngIf="messageCostoCuota">{{textoMensaje}}</label>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label>Cantidad de Cuotas</label>
+                    <input type="text" class="form-control" [ngClass]="{'is-invalid': messageCantidadCuota}" id="cantidad" name="cantidad" placeholder="Costo Cuota" [disabled]="inputDisabled" [(ngModel)]="gradoJson.cantidadCuotas" style="margin-bottom: 1%;">
+                    <label style="color: #dc3545; font-size: 80%;" *ngIf="messageCantidadCuota">{{textoMensaje}}</label>
+                  </div>
+                  <div class="form-group col-md-4">
                     <label>Tipo de Menu</label>
-                    <select class="form-control" [ngClass]="{'is-invalid': messageTipo}" id="rol" name="rol" [disabled]="inputDisabled" [(ngModel)]="gradoJson.idTipoMenu" style="margin-bottom: 1%;">
+                    <select class="form-control" [ngClass]="{'is-invalid': messageTipo}" id="tipo" name="tipo" [disabled]="inputDisabled" [(ngModel)]="gradoJson.idTipoMenu" style="margin-bottom: 1%;">
                       <option [ngValue]="0">Seleccione una opcion</option>
                       <option *ngFor="let tipo of dataTipos" [ngValue]="tipo.idTipoMenu">
                         {{tipo.descripcion}}
                       </option>
                     </select>
                     <label style="color: #dc3545; font-size: 80%;" *ngIf="messageTipo">{{textoMensaje}}</label>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label>Rol para el grado</label>
+                    <select class="form-control" [ngClass]="{'is-invalid': messageRol}" id="rol" name="rol" [disabled]="inputDisabled" [(ngModel)]="gradoJson.idRole" style="margin-bottom: 1%;">
+                      <option [ngValue]="0">Seleccione una opcion</option>
+                      <option *ngFor="let role of dataRoles" [ngValue]="role.idRole">
+                        {{role.nombre}}
+                      </option>
+                    </select>
+                    <label style="color: #dc3545; font-size: 80%;" *ngIf="messageRol">{{textoMensaje}}</label>
                   </div>
                 </div>
                 <div class="form-row">

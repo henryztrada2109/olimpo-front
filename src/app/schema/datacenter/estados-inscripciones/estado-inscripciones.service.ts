@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {environment} from '../../../environments/environment';
-import {PeticionesHttpService} from '../../shared/peticiones-http.service';
+import {environment} from '../../../../environments/environment';
+import {PeticionesHttpService} from '../../../shared/peticiones-http.service';
 
 @Injectable({
   providedIn: 'root'

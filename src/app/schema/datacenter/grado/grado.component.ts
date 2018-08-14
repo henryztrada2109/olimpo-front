@@ -39,6 +39,10 @@ export class GradoComponent implements OnInit {
     /*Variables Validaciones */
     messageCodigo: boolean;
     messageNombre: boolean;
+    messageCostoIns: boolean;
+    messageCostoCuota: boolean;
+    messageCantidadCuota: boolean;
+    messageRol: boolean;
     messageTipo: boolean;
     textoMensaje: string;
     /*Variables Validaciones Segundo Modal */
@@ -47,8 +51,9 @@ export class GradoComponent implements OnInit {
     messageCapacidadSeccion: boolean;
     textoMensajeSeccion: string;
     /* Variables de Datos */
-    gradoJson = {idGrado: 0, idTipoMenu: 0, nombre: '', orden: 0};
+    gradoJson = {idGrado: 0, idTipoMenu: 0, nombre: '', orden: 0, costoCuota: 0, costoInscripcion: 0, idRole: 0, cantidadCuotas: 0};
     dataTipos: {};
+    dataRoles: {};
     gradoDto: any;
     seccionDto: any;
     seccionJson = {capacidad: 0, idGrado: 0, idSeccion: 0, nombre: '', orden: 0};
@@ -93,9 +98,21 @@ export class GradoComponent implements OnInit {
         } else if (this.gradoJson.nombre == null || this.gradoJson.nombre === '') {
             this.messageNombre = true;
             this.textoMensaje = 'Debe ingresar un nombre.';
+        } else if (this.gradoJson.costoInscripcion < 1) {
+            this.messageCostoIns = true;
+            this.textoMensaje = 'Debe ingresar el costo de inscripcion';
+        } else if (this.gradoJson.costoCuota < 1) {
+            this.messageCostoCuota = true;
+            this.textoMensaje = 'Debe ingresar el costo de las cuotas del grado';
+        } else if (this.gradoJson.cantidadCuotas < 1) {
+            this.messageCantidadCuota = true;
+            this.textoMensaje = 'Debe ingresar la cantidad de cuotas para el grado';
         } else if (this.gradoJson.idTipoMenu < 1) {
             this.messageTipo = true;
             this.textoMensaje = 'Debe seleccionar un tipo de menu para iniciar el usuario.';
+        } else if (this.gradoJson.idRole < 1) {
+            this.messageRol = true;
+            this.textoMensaje = 'Debe seleccionar un rol para iniciar los usuarios de este grado.'
         } else if (this.seccionesTemporal.length < 1) {
             swal({
                 title: 'Error!',
@@ -120,10 +137,15 @@ export class GradoComponent implements OnInit {
     this.inputDisabled = false;
     this.controlBoton = true;
     this.listadoTipos();
+    this.listadoRoles();
     this.gradoJson.idGrado = null;
     this.gradoJson.idTipoMenu = 0;
     this.gradoJson.nombre = null;
     this.gradoJson.orden = null;
+    this.gradoJson.cantidadCuotas = null;
+    this.gradoJson.costoCuota = null;
+    this.gradoJson.costoInscripcion = null;
+    this.gradoJson.idRole = 0;
     this.seccionesTemporal = [];
     this.detenerAlertasPrimerModal();
   }
@@ -132,6 +154,10 @@ export class GradoComponent implements OnInit {
       this.messageCodigo = false;
       this.messageNombre = false;
       this.messageTipo = false;
+      this.messageCostoIns = false;
+      this.messageCostoCuota = false;
+      this.messageCantidadCuota = false;
+      this.messageRol = false;
   }
 
   async editarGrado(content, grado) {
@@ -142,6 +168,10 @@ export class GradoComponent implements OnInit {
       this.gradoJson.nombre = grado.nombre;
       this.gradoJson.orden = grado.orden;
       this.gradoJson.idGrado = grado.idGrado;
+      this.gradoJson.idRole = grado.idRole;
+      this.gradoJson.cantidadCuotas = grado.cantidadCuotas;
+      this.gradoJson.costoCuota = grado.costoCuota;
+      this.gradoJson.costoInscripcion = grado.costoInscripcion;
       this.dataSecciones = await this.service.listadoSecciones(grado.idGrado);
       this.dataSeccionesList = this.dataSecciones;
       const me = this;
@@ -271,6 +301,10 @@ export class GradoComponent implements OnInit {
   /* Solicitud de datos */
   async listadoTipos() {
         this.dataTipos = await this.service.listadoTipos();
+  }
+
+  async listadoRoles() {
+        this.dataRoles = await this.service.listadoRoles();
   }
 
   async crearGrado() {

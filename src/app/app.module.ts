@@ -31,18 +31,20 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatIconModule} from '@angular/material/icon';
 import {BarraLateralComponent} from './menu/barra-lateral/barra-lateral.component';
 import {NavbarComponent} from './menu/navbar/navbar.component';
-import {LoginComponent} from './schema/login/login.component';
-import {InicioComponent} from './schema/inicio/inicio.component';
-import {SeleccionComponent} from './schema/seleccion/seleccion.component';
-import {EstadosInscripcionesComponent} from './schema/estados-inscripciones/estados-inscripciones.component';
-import {PeriodoComponent} from './schema/periodo/periodo.component';
-import {GradoComponent} from './schema/grado/grado.component';
-import {InscripcionComponent} from './schema/inscripcion/inscripcion.component';
-import {TipoMenuComponent} from './schema/tipo-menu/tipo-menu.component';
-import {MenuPrincipalComponent} from './schema/menu-principal/menu-principal.component';
-import {RoleComponent} from './schema/role/role.component';
-import {UsuarioComponent} from './schema/usuario/usuario.component';
-import {AsignarAgenciasComponent} from './schema/asignar-agencias/asignar-agencias.component';
+import {LoginComponent} from './schema/seguridad/login/login.component';
+import {InicioComponent} from './schema/datacenter/inicio/inicio.component';
+import {SeleccionComponent} from './schema/seguridad/seleccion/seleccion.component';
+import {EstadosInscripcionesComponent} from './schema/datacenter/estados-inscripciones/estados-inscripciones.component';
+import {PeriodoComponent} from './schema/datacenter/periodo/periodo.component';
+import {GradoComponent} from './schema/datacenter/grado/grado.component';
+import {InscripcionComponent} from './schema/datacenter/inscripcion/inscripcion.component';
+import {TipoMenuComponent} from './schema/datacenter/tipo-menu/tipo-menu.component';
+import {MenuPrincipalComponent} from './schema/seguridad/menu-principal/menu-principal.component';
+import {RoleComponent} from './schema/seguridad/role/role.component';
+import {UsuarioComponent} from './schema/seguridad/usuario/usuario.component';
+import {AsignarAgenciasComponent} from './schema/seguridad/asignar-agencias/asignar-agencias.component';
+import { ValidacionesInscripcionesComponent } from './schema/datacenter/validaciones-inscripciones/validaciones-inscripciones.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -60,7 +62,8 @@ import {AsignarAgenciasComponent} from './schema/asignar-agencias/asignar-agenci
     MenuPrincipalComponent,
     RoleComponent,
     UsuarioComponent,
-    AsignarAgenciasComponent
+    AsignarAgenciasComponent,
+    ValidacionesInscripcionesComponent
   ],
   imports: [
     BrowserModule,
@@ -76,6 +79,7 @@ import {AsignarAgenciasComponent} from './schema/asignar-agencias/asignar-agenci
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
+    MatSlideToggleModule,
     MatIconModule,
     NgbModule.forRoot(),
     FormsModule,

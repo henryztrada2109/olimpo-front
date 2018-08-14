@@ -49,6 +49,10 @@ export class RoleComponent implements OnInit {
   datax: {};
   dataTipox: {};
   roleDto: any;
+  /* Datos validaciones */
+  validacionesDto: any;
+  errorDto: any;
+
   constructor(private readonly modalService: NgbModal,
               private readonly service: RoleService) { }
 
@@ -141,6 +145,8 @@ export class RoleComponent implements OnInit {
     } else {
       this.listado(this.pageSize, this.pageIndex);
       this.modalReference.close();
+      console.log(this.roleDto);
+      await this.crearValidaciones();
       swal({
         title: 'Exito!',
         text: 'Registro ingresado correctamente.',
@@ -167,22 +173,33 @@ export class RoleComponent implements OnInit {
   }
 
   async borrar(tipo) {
-    this.roleDto = await this.service.eliminar(tipo.idRole);
-    if (this.roleDto.code === 6) {
-      swal({
-        title: 'Error',
-        text: 'Registro se encuentra relacionado.',
-        type: 'warning',
-        confirmButtonText: 'Ok'
-      });
+    this.errorDto = await this.service.validacionGradoRelacionado(tipo.idRole);
+    if (this.errorDto.code === 91) {
+        swal({
+            title: 'Error',
+            text: 'Rol se encuentra relacionado en algun grado.',
+            type: 'warning',
+            confirmButtonText: 'Ok'
+        });
     } else {
-      swal({
-        title: 'Exito',
-        text: 'Registro eliminado correctamente.',
-        type: 'success',
-        confirmButtonText: 'Ok'
-      });
-      this.listado(this.pageSize, this.pageIndex);
+        this.errorDto = await this.service.eliminarValidaciones(tipo.idRole);
+        this.roleDto = await this.service.eliminar(tipo.idRole);
+        if (this.roleDto.code === 6) {
+            swal({
+                title: 'Error',
+                text: 'Registro se encuentra relacionado.',
+                type: 'warning',
+                confirmButtonText: 'Ok'
+            });
+        } else {
+            swal({
+                title: 'Exito',
+                text: 'Registro eliminado correctamente.',
+                type: 'success',
+                confirmButtonText: 'Ok'
+            });
+            this.listado(this.pageSize, this.pageIndex);
+        }
     }
   }
 
@@ -193,6 +210,10 @@ export class RoleComponent implements OnInit {
   refrescar($evento) {
     this.listado(this.pageSize, this.pageIndex - 1);
     return $evento;
+  }
+
+  async crearValidaciones() {
+        this.validacionesDto = this.service.creaValidaciones(this.roleDto.idRole);
   }
 
 }

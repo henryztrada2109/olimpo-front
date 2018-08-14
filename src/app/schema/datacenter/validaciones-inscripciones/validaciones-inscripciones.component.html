@@ -1,0 +1,293 @@
+<div class="container" @enterState>
+  <div class="row" style="margin-top: 5%;">
+    <div class="col-sm-12 col-xl-12">
+      <div class="card">
+        <div class="card-header" style="background-color: #204f81!important; color: white;">
+          <div class="row">
+            <div class="col-lg-12">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 4%;"><li class="fa fa-cog fa-2x" style="margin-top: 6%;"></li></td>
+                  <td style="width: 96%"><h3 style="margin-top: 1%;"> Validaciones Inscripciones</h3></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-4"></div>
+              <div class="col-lg-4">
+                <mat-form-field class="fullWidth">
+                  <mat-select placeholder="Rol" [(ngModel)]="rolSeleccionado" (selectionChange)="cargarDatos()">
+                    <mat-option *ngFor="let rol of listRoles; index as indexArray" [value]="indexArray">
+                      {{rol.nombre}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row espacioEntreFilas">
+              <div class="col-lg-12">
+                <div class="card borderCard">
+                  <div class="card-header colorHeader">
+                    <h5>Datos Academicos</h5>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-lg-4">
+                        <section class="seccionSlide">
+                          <mat-slide-toggle
+                                  class="example-margin"
+                                  [color]="color"
+                                  [checked]="validacionesContro.periodo"
+                                  [(ngModel)]="validacionesContro.periodo"
+                                  [disabled]="false"
+                                  (change)="cambio()">
+                            Periodo
+                          </mat-slide-toggle>
+                        </section>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row espacioEntreFilas">
+              <div class="col-lg-12">
+                <div class="card borderCard">
+                  <div class="card-header colorHeader">
+                    <h5>Datos del Alumno</h5>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-lg-4">
+                        <section class="seccionSlide">
+                          <mat-slide-toggle
+                                  class="example-margin"
+                                  [color]="color"
+                                  [checked]="validacionesContro.nombres"
+                                  [(ngModel)]="validacionesContro.nombres"
+                                  [disabled]="false"
+                                  (change)="cambio()">
+                            Nombres
+                          </mat-slide-toggle>
+                        </section>
+                      </div>
+                      <div class="col-lg-4">
+                        <section class="seccionSlide">
+                          <mat-slide-toggle
+                                  class="example-margin"
+                                  [color]="color"
+                                  [checked]="validacionesContro.apellidos"
+                                  [(ngModel)]="validacionesContro.apellidos"
+                                  [disabled]="false"
+                                  (change)="cambio()">
+                            Apellidos
+                          </mat-slide-toggle>
+                        </section>
+                      </div>
+                      <div class="col-lg-4">
+                        <section class="seccionSlide">
+                          <mat-slide-toggle
+                                  class="example-margin"
+                                  [color]="color"
+                                  [checked]="validacionesContro.genero"
+                                  [(ngModel)]="validacionesContro.genero"
+                                  [disabled]="false"
+                                  (change)="cambio()">
+                            Genero
+                          </mat-slide-toggle>
+                        </section>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-4">
+                        <section class="seccionSlide">
+                          <mat-slide-toggle
+                                  class="example-margin"
+                                  [color]="color"
+                                  [checked]="validacionesContro.fechaNacimiento"
+                                  [(ngModel)]="validacionesContro.fechaNacimiento"
+                                  [disabled]="false"
+                                  (change)="cambio()">
+                            Fecha de Nacimiento
+                          </mat-slide-toggle>
+                        </section>
+                      </div>
+                      <div class="col-lg-4">
+                        <section class="seccionSlide">
+                          <mat-slide-toggle
+                                  class="example-margin"
+                                  [color]="color"
+                                  [checked]="validacionesContro.telefonoCasa"
+                                  [(ngModel)]="validacionesContro.telefonoCasa"
+                                  [disabled]="false"
+                                  (change)="cambio()">
+                            Telefono Casa
+                          </mat-slide-toggle>
+                        </section>
+                      </div>
+                      <div class="col-lg-4">
+                        <section class="seccionSlide">
+                          <mat-slide-toggle
+                                  class="example-margin"
+                                  [color]="color"
+                                  [checked]="validacionesContro.telefonoCelular"
+                                  [(ngModel)]="validacionesContro.telefonoCelular"
+                                  [disabled]="false"
+                                  (change)="cambio()">
+                            Telefono Celular
+                          </mat-slide-toggle>
+                        </section>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-4">
+                        <section class="seccionSlide">
+                          <mat-slide-toggle
+                                  class="example-margin"
+                                  [color]="color"
+                                  [checked]="validacionesContro.correoElectronico"
+                                  [(ngModel)]="validacionesContro.correoElectronico"
+                                  [disabled]="false"
+                                  (change)="cambio()">
+                            Correo Electronico
+                          </mat-slide-toggle>
+                        </section>
+                      </div>
+                      <div class="col-lg-4">
+                        <section class="seccionSlide">
+                          <mat-slide-toggle
+                                  class="example-margin"
+                                  [color]="color"
+                                  [checked]="validacionesContro.profesion"
+                                  [(ngModel)]="validacionesContro.profesion"
+                                  [disabled]="false"
+                                  (change)="cambio()">
+                            Profesion
+                          </mat-slide-toggle>
+                        </section>
+                      </div>
+                      <div class="col-lg-4">
+                        <section class="seccionSlide">
+                          <mat-slide-toggle
+                                  class="example-margin"
+                                  [color]="color"
+                                  [checked]="validacionesContro.estadoCivil"
+                                  [(ngModel)]="validacionesContro.estadoCivil"
+                                  [disabled]="false"
+                                  (change)="cambio()">
+                            Estado Civil
+                          </mat-slide-toggle>
+                        </section>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-4">
+                        <section class="seccionSlide">
+                          <mat-slide-toggle
+                                  class="example-margin"
+                                  [color]="color"
+                                  [checked]="validacionesContro.ocupacion"
+                                  [(ngModel)]="validacionesContro.ocupacion"
+                                  [disabled]="false"
+                                  (change)="cambio()">
+                            Ocupacion
+                          </mat-slide-toggle>
+                        </section>
+                      </div>
+                      <div class="col-lg-4">
+                        <section class="seccionSlide">
+                          <mat-slide-toggle
+                                  class="example-margin"
+                                  [color]="color"
+                                  [checked]="validacionesContro.tipoIdentificacion"
+                                  [(ngModel)]="validacionesContro.tipoIdentificacion"
+                                  [disabled]="false"
+                                  (change)="cambio()">
+                            Tipo Identificacion
+                          </mat-slide-toggle>
+                        </section>
+                      </div>
+                      <div class="col-lg-4">
+                        <section class="seccionSlide">
+                          <mat-slide-toggle
+                                  class="example-margin"
+                                  [color]="color"
+                                  [checked]="validacionesContro.identificacion"
+                                  [(ngModel)]="validacionesContro.identificacion"
+                                  [disabled]="false"
+                                  (change)="cambio()">
+                            Identificacion
+                          </mat-slide-toggle>
+                        </section>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-4">
+                        <section class="seccionSlide">
+                          <mat-slide-toggle
+                                  class="example-margin"
+                                  [color]="color"
+                                  [checked]="validacionesContro.pais"
+                                  [(ngModel)]="validacionesContro.pais"
+                                  [disabled]="false"
+                                  (change)="cambio()">
+                            Pais
+                          </mat-slide-toggle>
+                        </section>
+                      </div>
+                      <div class="col-lg-4">
+                        <section class="seccionSlide">
+                          <mat-slide-toggle
+                                  class="example-margin"
+                                  [color]="color"
+                                  [checked]="validacionesContro.departamento"
+                                  [(ngModel)]="validacionesContro.departamento"
+                                  [disabled]="false"
+                                  (change)="cambio()">
+                            Departamento
+                          </mat-slide-toggle>
+                        </section>
+                      </div>
+                      <div class="col-lg-4">
+                        <section class="seccionSlide">
+                          <mat-slide-toggle
+                                  class="example-margin"
+                                  [color]="color"
+                                  [checked]="validacionesContro.municipio"
+                                  [(ngModel)]="validacionesContro.municipio"
+                                  [disabled]="false"
+                                  (change)="cambio()">
+                            Municipio
+                          </mat-slide-toggle>
+                        </section>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-4">
+                        <section class="seccionSlide">
+                          <mat-slide-toggle
+                                  class="example-margin"
+                                  [color]="color"
+                                  [checked]="validacionesContro.direccion"
+                                  [(ngModel)]="validacionesContro.direccion"
+                                  [disabled]="false"
+                                  (change)="cambio()">
+                            Direccion
+                          </mat-slide-toggle>
+                        </section>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

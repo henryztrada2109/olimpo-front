@@ -18,6 +18,9 @@ export class PeticionesHttpService {
   funtionPost(pathAdicional: string, data, puerto: string) {
     return this.http.post( environment.ipBase + puerto + pathAdicional, JSON.stringify(data), httpOptions).toPromise();
   }
+  funtionPostPorPath(pathAdicional: string, puerto: string) {
+        return this.http.post( environment.ipBase + puerto + pathAdicional, httpOptions).toPromise();
+  }
   funtionPatch(pathAdicional: string, data, puerto: string) {
     return this.http.patch(environment.ipBase + puerto + pathAdicional, data, httpOptions).toPromise();
   }

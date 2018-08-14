@@ -107,3 +107,35 @@
 .textLeft {
   text-align: left;
 }
+
+.subTitleCard {
+  font-size: 1.2em;
+  padding: 0;
+  margin-bottom: 5px;
+  border-bottom: 2px solid #EAEAEA;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.espacioEntreFilas {
+  margin-top: 2%;
+}
+
+.colorHeader {
+  background-color: #204f81!important;
+  color: white;
+}
+
+.borderCard {
+  border: 1px solid #353d47!important;
+}
+
+.seccionSlide {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 40px;
+}
+
+.example-margin {
+
+}
