@@ -12,61 +12,61 @@ export class GradoService {
   constructor(private serviceGeneral: PeticionesHttpService) { }
 
     listadoTipos() {
-        this.pathAdicional = '/seguridad/seguridad/tipoMenu/consultaSelect';
+        this.pathAdicional = '/seguridad/v1/tipoMenu/consultaSelect';
         return this.serviceGeneral.funtionGet(this.pathAdicional, environment.puerto)
             .catch(Promise.reject);
     }
 
     listadoRoles() {
-        this.pathAdicional = '/seguridad/seguridad/role/consultaSelect';
+        this.pathAdicional = '/seguridad/v1/role/consultaSelect';
         return this.serviceGeneral.funtionGet(this.pathAdicional, environment.puerto)
             .catch(Promise.reject);
     }
 
     creaGrado(data) {
-        this.pathAdicional = '/datacenter/datacenter/grado/crear';
+        this.pathAdicional = '/datacenter/v1/grado/crear';
         return this.serviceGeneral.funtionPost(this.pathAdicional, data, environment.puerto)
             .catch(Promise.reject);
     }
 
     listadoGrados(size, page) {
-        this.pathAdicional = '/datacenter/datacenter/grado/consultaGeneral?page=' + page + '&size=' + size;
+        this.pathAdicional = '/datacenter/v1/grado/consultaGeneral?page=' + page + '&size=' + size;
         return this.serviceGeneral.funtionGet(this.pathAdicional, environment.puerto)
             .catch(Promise.reject);
     }
 
     modificarGrado(data) {
-        this.pathAdicional = '/datacenter/datacenter/grado/editar';
+        this.pathAdicional = '/datacenter/v1/grado/editar';
         return this.serviceGeneral.funtionPatch(this.pathAdicional, data, environment.puerto)
             .catch(Promise.reject);
     }
 
     eliminarGrado(codigo) {
-        this.pathAdicional = '/datacenter/datacenter/grado/eliminar/' + codigo;
+        this.pathAdicional = '/datacenter/v1/grado/eliminar/' + codigo;
         return this.serviceGeneral.funtionDelete(this.pathAdicional, environment.puerto)
             .catch(Promise.reject);
     }
 
     creaSeccion(data) {
-        this.pathAdicional = '/datacenter/datacenter/seccion/crear';
+        this.pathAdicional = '/datacenter/v1/seccion/crear';
         return this.serviceGeneral.funtionPost(this.pathAdicional, data, environment.puerto)
             .catch(Promise.reject);
     }
 
     listadoSecciones(idGrado: number) {
-        this.pathAdicional = '/datacenter/datacenter/seccion/consultaSelect/' + idGrado;
+        this.pathAdicional = '/datacenter/v1/seccion/consultaSelect/' + idGrado;
         return this.serviceGeneral.funtionGet(this.pathAdicional, environment.puerto)
             .catch(Promise.reject);
     }
 
     modificarSeccion(data) {
-        this.pathAdicional = '/datacenter/datacenter/seccion/editar';
+        this.pathAdicional = '/datacenter/v1/seccion/editar';
         return this.serviceGeneral.funtionPatch(this.pathAdicional, data, environment.puerto)
             .catch(Promise.reject);
     }
 
     eliminarSeccion(codigo) {
-        this.pathAdicional = '/datacenter/datacenter/seccion/eliminar/' + codigo;
+        this.pathAdicional = '/datacenter/v1/seccion/eliminar/' + codigo;
         return this.serviceGeneral.funtionDelete(this.pathAdicional, environment.puerto)
             .catch(Promise.reject);
     }

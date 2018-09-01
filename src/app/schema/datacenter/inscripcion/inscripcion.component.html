@@ -77,10 +77,10 @@
             </div>
           </div>
           <div class="container">
-            <div class="row" *ngIf="controlNivel === 2 || controlNivel === 3 || controlNivel === 4">
-              <div class="col-lg-3 cardTitleSection activeCard" [ngClass]="{'cardMouse': indexInscripcion > 0, 'cardMouseBloqueo': indexInscripcion < 1}">
-                <div class="iconCard fa fa-id-card"></div>
-                <!--div class="iconCard fa fa-check-circle activeIcon"></div-->
+            <div class="row" *ngIf="controlNivel === 2 || controlNivel === 3 || controlNivel === 4 || controlNivel === 5">
+              <div class="col-lg-3 cardTitleSection" [ngClass]="{'cardMouse': indexInscripcion > 0, 'cardMouseBloqueo': indexInscripcion < 1, 'activeCard': controlNivel === 2}" (click)="muestraDenuevo(2)">
+                <div class="iconCard fa fa-id-card" *ngIf="pasosAprobados < 2"></div>
+                <div class="iconCard fa fa-check-circle activeIcon" *ngIf="pasosAprobados > 1"></div>
                 <div class="stepInlineCard">
                   <div class="titleCard">
                     Paso 1
@@ -90,7 +90,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-lg-3 cardTitleSection cardMouseBloqueo" [ngClass]="{'cardMouse': indexInscripcion > 1, 'cardMouseBloqueo': indexInscripcion < 2}">
+              <div class="col-lg-3 cardTitleSection" [ngClass]="{'cardMouse': indexInscripcion > 1, 'cardMouseBloqueo': indexInscripcion < 2, 'activeCard': controlNivel === 3}" (click)="muestraDenuevo(3)">
                 <div class="iconCard fa fa-group"></div>
                 <div class="stepInlineCard">
                   <div class="titleCard">
@@ -101,7 +101,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-lg-3 cardTitleSection cardMouseBloqueo" [ngClass]="{'cardMouse': indexInscripcion > 2, 'cardMouseBloqueo': indexInscripcion < 3}">
+              <div class="col-lg-3 cardTitleSection" [ngClass]="{'cardMouse': indexInscripcion > 2, 'cardMouseBloqueo': indexInscripcion < 3, 'activeCard': controlNivel === 4}">
                 <div class="iconCard fa fa-newspaper-o"></div>
                 <div class="stepInlineCard">
                   <div class="titleCard">
@@ -112,7 +112,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-lg-3 cardTitleSection cardMouse" [ngClass]="{'cardMouse': indexInscripcion > 3, 'cardMouseBloqueo': indexInscripcion < 4}">
+              <div class="col-lg-3 cardTitleSection" [ngClass]="{'cardMouse': indexInscripcion > 3, 'cardMouseBloqueo': indexInscripcion < 4, 'activeCard': controlNivel === 5}">
                 <div class="iconCard fa fa-credit-card"></div>
                 <div class="stepInlineCard">
                   <div class="titleCard">
@@ -144,17 +144,19 @@
                 </div>
                 <div class="col-lg-4">
                   <label>Grado a Inscribir</label>
-                  <select class="form-control fullWidth" id="gradoInscripcion" name="gradoInscripcion">
+                  <select class="form-control fullWidth" id="gradoInscripcion" name="gradoInscripcion" [ngClass]="{'is-invalid': messageGradoInscribir}" [(ngModel)]="inscripcionJson.idGrado">
                     <option [ngValue]="0">Seleccione una opcion</option>
                     <option *ngFor="let grado of dataGrados" [ngValue]="grado.idGrado">{{grado.nombre}}</option>
                   </select>
+                  <label style="color: #dc3545; font-size: 80%;" *ngIf="messageGradoInscribir">{{textoMensaje}}</label>
                 </div>
                 <div class="col-lg-4">
                   <label>Periodo</label>
-                  <select class="form-control fullWidth" id="periodo" name="periodo" [(ngModel)]="periodoActual">
+                  <select class="form-control fullWidth" id="periodo" name="periodo" [(ngModel)]="periodoActual" [ngClass]="{'is-invalid': messagePeriodo}">
                     <option [ngValue]="0">Seleccione una opcion</option>
                     <option *ngFor="let periodo of dataPeriodosArray" [ngValue]="periodo.idPeriodo">{{periodo.descripcion}}</option>
                   </select>
+                  <label style="color: #dc3545; font-size: 80%;" *ngIf="messagePeriodo">{{textoMensaje}}</label>
                 </div>
               </div>
               <div class="row" style="margin-top: 2%;">
@@ -165,22 +167,24 @@
               <div class="row" style="margin-top: 2%;">
                 <div class="col-lg-6">
                   <label>Nombres</label>
-                  <input type="text" class="form-control fullWidth" placeholder="Nombres">
+                  <input type="text" class="form-control fullWidth" placeholder="Nombres" [ngClass]="{'is-invalid': messageNombres}" [(ngModel)]="inscripcionJson.nombres">
+                  <label style="color: #dc3545; font-size: 80%;" *ngIf="messageNombres">{{textoMensaje}}</label>
                 </div>
                 <div class="col-lg-6">
                   <label>Apellidos</label>
-                  <input type="text" class="form-control fullWidth" placeholder="Apellidos">
+                  <input type="text" class="form-control fullWidth" placeholder="Apellidos" [ngClass]="{'is-invalid': messageApellidos}" [(ngModel)]="inscripcionJson.apellidos">
+                  <label style="color: #dc3545; font-size: 80%;" *ngIf="messageApellidos">{{textoMensaje}}</label>
                 </div>
               </div>
               <div class="row" style="margin-top: 2%;">
                 <div class="col-lg-6">
                   <label>Genero</label>
                   <div class="card">
-                    <div class="card-body">
+                    <div class="card-body" [ngClass]="{'alertBorder': messageGenero}">
                       <div class="row">
                         <div class="col-lg-6 text-center">
                           <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" value="option2">
+                            <input class="form-check-input" type="radio" name="exampleRadios" value="option2" [(ngModel)]="sexo" [value]="true">
                             <label class="form-check-label">
                               Masculino
                             </label>
@@ -188,7 +192,7 @@
                         </div>
                         <div class="col-lg-6 text-center" style="border-left: 1px solid rgb(204, 204, 204);">
                           <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" value="option2">
+                            <input class="form-check-input" type="radio" name="exampleRadios" value="option2" [(ngModel)]="sexo" [value]="false">
                             <label class="form-check-label">
                               Femenino
                             </label>
@@ -197,34 +201,39 @@
                       </div>
                     </div>
                   </div>
+                  <label style="color: #dc3545; font-size: 80%;" *ngIf="messageGenero">{{textoMensaje}}</label>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label>Fecha de Nacimiento</label>
                     <div class="input-group">
                       <input class="form-control" placeholder="yyyy-mm-dd"
-                             name="fechaNacimiento" ngbDatepicker #d="ngbDatepicker">
+                             name="fechaNacimiento" ngbDatepicker #d="ngbDatepicker" [(ngModel)]="fechaNacimiento" [ngClass]="{'is-invalid': messageFechaNacimiento}">
                       <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                        <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button" [ngClass]="{'is-invalid': messageFechaNacimiento}">
                           <span class="fa fa-calendar"></span>
                         </button>
                       </div>
                     </div>
+                    <label style="color: #dc3545; font-size: 80%;" *ngIf="messageFechaNacimiento">{{textoMensaje}}</label>
                   </div>
                 </div>
               </div>
               <div class="row" style="margin-top: 2%;">
                 <div class="col-lg-4">
                   <label>Telefono casa</label>
-                  <input type="number" class="form-control fullWidth" placeholder="Telefono casa">
+                  <input type="number" class="form-control fullWidth" [ngClass]="{'is-invalid': messageTelefonoCasa}" placeholder="Telefono casa" [(ngModel)]="inscripcionJson.telefonoCasa">
+                  <label style="color: #dc3545; font-size: 80%;" *ngIf="messageTelefonoCasa">{{textoMensaje}}</label>
                 </div>
                 <div class="col-lg-4">
                   <label>Telefono celular</label>
-                  <input type="number" class="form-control fullWidth" placeholder="Telefono celular">
+                  <input type="number" class="form-control fullWidth" [ngClass]="{'is-invalid': messageTelefonoCelular}" placeholder="Telefono celular" [(ngModel)]="inscripcionJson.telefonoCelular">
+                  <label style="color: #dc3545; font-size: 80%;" *ngIf="messageTelefonoCelular">{{textoMensaje}}</label>
                 </div>
                 <div class="col-lg-4">
                   <label>Correo electronico</label>
-                  <input type="mail" class="form-control fullWidth" placeholder="Correo electronico">
+                  <input type="mail" class="form-control fullWidth" [ngClass]="{'is-invalid': messageCorreo}" placeholder="Correo electronico" [(ngModel)]="inscripcionJson.correo">
+                  <label style="color: #dc3545; font-size: 80%;" *ngIf="messageCorreo">{{textoMensaje}}</label>
                 </div>
               </div>
               <div class="row" style="margin-top: 2%;">
@@ -232,9 +241,11 @@
                   <div class="form-row fullWidth">
                     <div class="form-group fullWidth">
                       <label>Profesion</label>
-                      <select class="form-control fullWidth" id="profesion" name="profesion">
+                      <select class="form-control fullWidth" id="profesion" name="profesion" [(ngModel)]="inscripcionJson.idProfesion" [ngClass]="{'is-invalid': messageProfesion}">
                         <option [ngValue]="0">Seleccione una opcion</option>
+                        <option *ngFor="let profesion of dataProfesiones" [ngValue]="profesion.idProfesion">{{profesion.descripcion}}</option>
                       </select>
+                      <label style="color: #dc3545; font-size: 80%;" *ngIf="messageProfesion">{{textoMensaje}}</label>
                     </div>
                   </div>
                 </div>
@@ -242,9 +253,11 @@
                   <div class="form-row fullWidth">
                     <div class="form-group fullWidth">
                       <label>Estado de civil</label>
-                      <select class="form-control fullWidth" id="estadoCivil" name="estadoCivil">
+                      <select class="form-control fullWidth" id="estadoCivil" name="estadoCivil" [(ngModel)]="inscripcionJson.idEstadoCivil" [ngClass]="{'is-invalid': messageEstadoCivil}">
                         <option [ngValue]="0">Seleccione una opcion</option>
+                        <option *ngFor="let estado of dataEstadosCiviles" [ngValue]="estado.idEstado">{{estado.descripcion}}</option>
                       </select>
+                      <label style="color: #dc3545; font-size: 80%;" *ngIf="messageEstadoCivil">{{textoMensaje}}</label>
                     </div>
                   </div>
                 </div>
@@ -319,7 +332,10 @@
                 </div>
               </div>
             </div>
-            <div class="row" style="border-top: 1px solid #e9ecef; padding: 1rem; margin-top: 3%;">
+            <div *ngIf="controlNivel === 3">
+              <p>Nivel 2</p>
+            </div>
+            <div class="row" style="border-top: 1px solid #e9ecef; padding: 1rem; margin-top: 3%;" *ngIf="controlNivel > 1">
               <div class="col-lg-8"></div>
               <div class="col-lg-2">
                 <button type="button" class="btn btn-outline-dark" *ngIf="controlBoton" (click)="confirmarFormulario()" style="width: 100%; margin-top: 10%;">Siguiente</button>

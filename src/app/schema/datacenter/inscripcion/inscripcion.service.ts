@@ -11,14 +11,32 @@ export class InscripcionService {
 
     constructor(private serviceGeneral: PeticionesHttpService) {}
 
-    listadoGrados() {
-        this.pathAdicional = '/datacenter/datacenter/grado/consultaSelect';
+    listadoGrados(): Promise<any[]> {
+        this.pathAdicional = '/datacenter/v1/grado/consultaSelect';
         return this.serviceGeneral.funtionGet(this.pathAdicional, environment.puerto)
             .catch(Promise.reject);
     }
 
     listadoPeriodos() {
-        this.pathAdicional = '/datacenter/datacenter/periodo/consultaSelect';
+        this.pathAdicional = '/datacenter/v1/periodo/consultaSelect';
+        return this.serviceGeneral.funtionGet(this.pathAdicional, environment.puerto)
+            .catch(Promise.reject);
+    }
+
+    validaciones(idRole: number) {
+        this.pathAdicional = `/datacenter/v1/validacionesIns/consulta/${idRole}`;
+        return this.serviceGeneral.funtionGet(this.pathAdicional, environment.puerto)
+            .catch(Promise.reject);
+    }
+
+    listadoProfesiones(): Promise<any[]> {
+        this.pathAdicional = '/datacenter/v1/profesion/consultaSelect';
+        return this.serviceGeneral.funtionGet(this.pathAdicional, environment.puerto)
+            .catch(Promise.reject);
+    }
+
+    listadoEstadosCiviles(): Promise<any[]> {
+        this.pathAdicional = '/datacenter/v1/estadoCivil/consultaSelect';
         return this.serviceGeneral.funtionGet(this.pathAdicional, environment.puerto)
             .catch(Promise.reject);
     }

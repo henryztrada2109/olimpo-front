@@ -12,13 +12,13 @@ export class NavbarService {
   constructor(private serviceGeneral: PeticionesHttpService) { }
 
   getEmpresa(idEmpresa) {
-    this.pathAdicional = '/seguridad/seguridad/empresa/consulta/' + idEmpresa;
+    this.pathAdicional = '/seguridad/v1/empresa/consulta/' + idEmpresa;
     return this.serviceGeneral.funtionGet(this.pathAdicional, environment.puerto)
       .catch(Promise.reject);
   }
 
   menuEstructura(codigo) {
-    this.pathAdicional = '/seguridad/seguridad/menuPrincipal/estructuraMenu/' + codigo;
+    this.pathAdicional = '/seguridad/v1/menuPrincipal/estructuraMenu/' + codigo;
     return this.serviceGeneral.funtionGet(this.pathAdicional, environment.puerto)
       .catch(Promise.reject);
   }

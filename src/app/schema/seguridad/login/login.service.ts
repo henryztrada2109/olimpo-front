@@ -12,7 +12,7 @@ export class LoginService {
   constructor(private serviceGeneral: PeticionesHttpService) { }
 
   validaUsuario(usuario: string, pass: string) {
-    this.pathAdicional = '/seguridad/seguridad/usuario/validar/' + usuario + '/' + pass;
+    this.pathAdicional = '/seguridad/v1/usuario/validar/' + usuario + '/' + pass;
     return this.serviceGeneral.funtionGet(this.pathAdicional, environment.puerto)
       .catch(Promise.reject);
   }

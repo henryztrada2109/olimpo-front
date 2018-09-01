@@ -139,3 +139,68 @@
 .example-margin {
 
 }
+
+.alertBorder {
+  border: 1px solid red!important;
+}
+
+/* Manejo de cursor */
+
+.change-mouse:hover {
+  cursor: pointer;
+}
+
+/* Botones */
+
+.button-primary {
+  color: white;
+  background-color: #204f81!important;
+  border-color: #204f81!important;
+}
+
+.button-ligth {
+  color: black;
+  background-color: #CDCECF!important;
+  border-color: #CDCECF!important;
+}
+
+.button-circle {
+  width: 40px;
+  height: 40px;
+  border-bottom-left-radius: 20px!important;
+  border-top-left-radius: 20px!important;
+  border-bottom-right-radius: 20px!important;
+  border-top-right-radius: 20px!important;
+}
+
+/* Espacios entre elementos */
+
+.ct-margin-bottom {
+  margin-bottom: 2%;
+}
+
+.ct-margin-left {
+  margin-left: 2%;
+}
+
+/* Color de texto */
+
+.color-sv-text {
+  color: #878787;
+}
+
+/* Mantenimientos simples */
+
+.border-separator {
+  border-right: 1px transparent;
+  border-bottom: 1px solid #BBBBBB;
+  margin-bottom: 2%;
+}
+
+@media only screen and (min-width: 992px) {
+  .border-separator {
+    border-right: 1px solid #BBBBBB;
+    border-bottom: 1px transparent;
+    margin-bottom: 0;
+  }
+}

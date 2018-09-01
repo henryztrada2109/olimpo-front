@@ -12,25 +12,25 @@ export class TipoMenuService {
   constructor(private serviceGeneral: PeticionesHttpService) { }
 
   listadoTipo(size, page) {
-    this.pathAdicional = '/seguridad/seguridad/tipoMenu/consultaGeneral?page=' + page + '&size=' + size;
+    this.pathAdicional = '/seguridad/v1/tipoMenu/consultaGeneral?page=' + page + '&size=' + size;
     return this.serviceGeneral.funtionGet(this.pathAdicional, environment.puerto)
       .catch(Promise.reject);
   }
 
   crea(data) {
-    this.pathAdicional = '/seguridad/seguridad/tipoMenu/crear';
+    this.pathAdicional = '/seguridad/v1/tipoMenu/crear';
     return this.serviceGeneral.funtionPost(this.pathAdicional, data, environment.puerto)
       .catch(Promise.reject);
   }
 
   modificar(data) {
-    this.pathAdicional = '/seguridad/seguridad/tipoMenu/editar';
+    this.pathAdicional = '/seguridad/v1/tipoMenu/editar';
     return this.serviceGeneral.funtionPatch(this.pathAdicional, data, environment.puerto)
       .catch(Promise.reject);
   }
 
   eliminar(codigo) {
-    this.pathAdicional = '/seguridad/seguridad/tipoMenu/eliminar/' + codigo;
+    this.pathAdicional = '/seguridad/v1/tipoMenu/eliminar/' + codigo;
     return this.serviceGeneral.funtionDelete(this.pathAdicional, environment.puerto)
       .catch(Promise.reject);
   }

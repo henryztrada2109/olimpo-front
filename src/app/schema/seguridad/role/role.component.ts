@@ -145,7 +145,6 @@ export class RoleComponent implements OnInit {
     } else {
       this.listado(this.pageSize, this.pageIndex);
       this.modalReference.close();
-      console.log(this.roleDto);
       await this.crearValidaciones();
       swal({
         title: 'Exito!',

@@ -17,6 +17,8 @@ import {RoleComponent} from '../schema/seguridad/role/role.component';
 import {UsuarioComponent} from '../schema/seguridad/usuario/usuario.component';
 import {AsignarAgenciasComponent} from '../schema/seguridad/asignar-agencias/asignar-agencias.component';
 import {ValidacionesInscripcionesComponent} from '../schema/datacenter/validaciones-inscripciones/validaciones-inscripciones.component';
+import {ProfesionComponent} from '../schema/datacenter/profesion/profesion.component';
+import {EstadoCivilComponent} from '../schema/datacenter/estado-civil/estado-civil.component';
 
 
 export const appRoutes: Routes = [
@@ -33,7 +35,9 @@ export const appRoutes: Routes = [
   {path: 'role', component: RoleComponent, canActivate: [SeleccionGuard]},
   {path: 'usuario', component: UsuarioComponent, canActivate: [SeleccionGuard]},
   {path: 'asignarAgencia', component: AsignarAgenciasComponent, canActivate: [SeleccionGuard]},
-  {path: 'validacionesInscripciones', component: ValidacionesInscripcionesComponent, canActivate: [SeleccionGuard]}
+  {path: 'validacionesInscripciones', component: ValidacionesInscripcionesComponent, canActivate: [SeleccionGuard]},
+  {path: 'profesiones', component: ProfesionComponent, canActivate: [SeleccionGuard]},
+  {path: 'estadoCivil', component: EstadoCivilComponent, canActivate: [SeleccionGuard]}
 ];
 
 @NgModule({

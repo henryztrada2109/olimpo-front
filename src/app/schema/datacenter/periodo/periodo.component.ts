@@ -186,7 +186,7 @@ export class PeriodoComponent implements OnInit {
         this.controlBoton = true;
         this.periodoJson.descripcion = periodo.descripcion;
         this.periodoJson.periodoActual = periodo.periodoActual;
-        this.fechaInicial.year = 2018;
+        this.fechaInicial.year = periodo.anioInicio;
         this.fechaInicial.month = periodo.mesInicio;
         this.fechaInicial.day = periodo.diaInicio;
         this.fechaFinal.year = periodo.anioFin;

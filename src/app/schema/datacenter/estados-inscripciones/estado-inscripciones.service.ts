@@ -12,13 +12,13 @@ export class EstadoInscripcionesService {
   constructor(private readonly serviceGeneral: PeticionesHttpService) { }
 
   modificar(data) {
-      this.pathAdicional = '/datacenter/datacenter/estadosInscripciones/editar';
+      this.pathAdicional = '/datacenter/v1/estadosInscripciones/editar';
       return this.serviceGeneral.funtionPatch(this.pathAdicional, data, environment.puerto)
           .catch(Promise.reject);
   }
 
   listadoGeneral() {
-      this.pathAdicional = '/datacenter/datacenter/estadosInscripciones/consultaSelect';
+      this.pathAdicional = '/datacenter/v1/estadosInscripciones/consultaSelect';
       return this.serviceGeneral.funtionGet(this.pathAdicional, environment.puerto)
           .catch(Promise.reject);
   }

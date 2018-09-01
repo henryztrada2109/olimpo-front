@@ -365,7 +365,6 @@ export class GradoComponent implements OnInit {
       this.gradoDto = await this.service.eliminarGrado(id);
       if (this.gradoDto.code === 12) {
           this.listadoPrincipal(this.pageSize, this.pageIndex);
-          this.modalReference.close();
           swal({
               title: 'Exito!',
               text: 'Registro eliminado correctamente.',

@@ -12,7 +12,7 @@ export class BarraLateralService {
   constructor(private serviceGeneral: PeticionesHttpService) { }
 
   menuEstructura(codigo) {
-    this.pathAdicional = '/seguridad/seguridad/menuPrincipal/estructuraMenu/' + codigo;
+    this.pathAdicional = '/seguridad/v1/menuPrincipal/estructuraMenu/' + codigo;
     return this.serviceGeneral.funtionGet(this.pathAdicional, environment.puerto)
       .catch(Promise.reject);
   }

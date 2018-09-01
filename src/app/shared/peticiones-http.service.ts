@@ -12,7 +12,7 @@ const httpOptions = {
 export class PeticionesHttpService {
 
   constructor(private http: HttpClient) { }
-  funtionGet(pathAdicional: string, puerto: string) {
+  funtionGet(pathAdicional: string, puerto: string): Promise<any> {
     return this.http.get(environment.ipBase + puerto + pathAdicional, httpOptions).toPromise();
   }
   funtionPost(pathAdicional: string, data, puerto: string) {

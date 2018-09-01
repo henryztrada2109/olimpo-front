@@ -1,0 +1,70 @@
+<div class="container col-lg-8">
+  <div class="row" style="margin-top: 5%;">
+    <div class="col-sm-12 col-xl-12">
+      <div class="card">
+        <div class="card-header" style="background-color: #204f81!important; color: white;">
+          <div class="row">
+            <div class="col-lg-12">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 4%;"><li class="fa fa-male fa-2x" style="margin-top: 13%;"></li></td>
+                  <td style="width: 96%;"><h3 style="margin-left: 1%; margin-top: 1%;">Estados Civiles</h3></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-2"></div>
+              <div class="col-lg-3">
+                <button type="button" class="btn propioBtnPrimary" (click)="open(content)">Nuevo Estado</button>
+              </div>
+            </div>
+            <div class="row" style="margin-top: 2%;">
+              <div class="col-lg-2"></div>
+              <div class="col-lg-8">
+                <div class="list-group">
+                  <a class="list-group-item list-group-item-action cardMouse" *ngFor="let estadoCivil of dataEstadoCivil" (click)="modal(estadoCivil, content)">{{estadoCivil.descripcion}}</a>
+                </div>
+                <table style="width: 100%; margin-top: 2%;">
+                  <tr>
+                    <td style="text-align: right;">
+                      <ngb-pagination class="d-flex justify-content-end" [collectionSize]="length" [(page)]="pageIndex" aria-label="Default pagination" (pageChange)="pageEvent = refrescar($event)" [maxSize]="5" [pageSize]="pageSize"></ngb-pagination>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div class="col-lg-2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">{{tituloModal}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label>Descripcion</label>
+        <input type="text" class="form-control" placeholder="Descripcion" name="descripcion" required [(ngModel)]="estadoCivil.descripcion" [disabled]="inputDisabled" style="margin-bottom: 1%;" [ngClass]="{'is-invalid': messageDescripcion}">
+        <label style="color: #dc3545; font-size: 80%;" *ngIf="messageDescripcion">{{textoMensaje}}</label>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" *ngIf="controlEliminar" (click)="eliminar()">Eliminar</button>
+    <button type="button" class="btn btn-warning" *ngIf="controlCambiar" (click)="cambiar()">Guardar Cambios</button>
+    <button type="button" class="btn btn-outline-dark" *ngIf="controlBoton" (click)="confirmaModal()">Confirmar</button>
+    <button type="button" class="btn btn-outline-dark" (click)="closeModal()">Cerrar</button>
+  </div>
+</ng-template>

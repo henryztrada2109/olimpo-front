@@ -8,7 +8,7 @@ import {
     MatNativeDateModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
-    MatSortModule
+    MatSortModule, MatTooltipModule
 } from '@angular/material';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -22,7 +22,7 @@ import {FlextModule} from 'flext';
 import {FlextStagesService} from './shared/flext-stages.service';
 import {DatePipe, DecimalPipe} from '@angular/common';
 import {PeticionesHttpService} from './shared/peticiones-http.service';
-import {NgbModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule, NgbPaginationModule, NgbTypeaheadModule} from '@ng-bootstrap/ng-bootstrap';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material';
@@ -45,6 +45,8 @@ import {UsuarioComponent} from './schema/seguridad/usuario/usuario.component';
 import {AsignarAgenciasComponent} from './schema/seguridad/asignar-agencias/asignar-agencias.component';
 import { ValidacionesInscripcionesComponent } from './schema/datacenter/validaciones-inscripciones/validaciones-inscripciones.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { ProfesionComponent } from './schema/datacenter/profesion/profesion.component';
+import { EstadoCivilComponent } from './schema/datacenter/estado-civil/estado-civil.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +65,9 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     RoleComponent,
     UsuarioComponent,
     AsignarAgenciasComponent,
-    ValidacionesInscripcionesComponent
+    ValidacionesInscripcionesComponent,
+    ProfesionComponent,
+    EstadoCivilComponent
   ],
   imports: [
     BrowserModule,
@@ -81,6 +85,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     MatCheckboxModule,
     MatSlideToggleModule,
     MatIconModule,
+    MatTooltipModule,
     NgbModule.forRoot(),
     FormsModule,
     MatProgressSpinnerModule,
@@ -89,6 +94,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     NgbPaginationModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+      NgbTypeaheadModule,
     BusynessModule.forRoot({
       loaderType: LoaderType.BALL_SCALE_MULTIPLE
     }),
