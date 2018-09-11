@@ -35,6 +35,24 @@ export class GradoService {
             .catch(Promise.reject);
     }
 
+    listadoGradosFiltro(size, page, idGrado) {
+        this.pathAdicional = '/datacenter/v1/grado/consultaGeneralFiltro/' + idGrado + '?page=' + page + '&size=' + size;
+        return this.serviceGeneral.funtionGet(this.pathAdicional, environment.puerto)
+            .catch(Promise.reject);
+    }
+
+    listadoFiltro(filtro) {
+        this.pathAdicional = '/datacenter/v1/grado/consultaFiltro/' + filtro;
+        return this.serviceGeneral.funtionGet(this.pathAdicional, environment.puerto)
+            .catch(Promise.reject);
+    }
+
+    listadoSelect() {
+        this.pathAdicional = '/datacenter/v1/grado/consultaSelect';
+        return this.serviceGeneral.funtionGet(this.pathAdicional, environment.puerto)
+            .catch(Promise.reject);
+    }
+
     modificarGrado(data) {
         this.pathAdicional = '/datacenter/v1/grado/editar';
         return this.serviceGeneral.funtionPatch(this.pathAdicional, data, environment.puerto)

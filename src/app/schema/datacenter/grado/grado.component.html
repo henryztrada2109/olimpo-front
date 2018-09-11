@@ -17,7 +17,26 @@
         <div class="card-body">
           <div class="container" *ngIf="controlNivel == 1">
             <div class="row">
-              <button type="button" class="btn propioBtnPrimary" (click)="open(content)">Nuevo Grado</button>
+              <div class="col-lg-2">
+                <button type="button" class="btn propioBtnPrimary" (click)="open()">Nuevo Grado</button>
+              </div>
+              <div class="col-lg-10">
+                <div class="autocomplete" style="width: 100%;">
+                  <div class="input-group">
+                    <input type="text" class="form-control" name="filtro" id="filtro" placeholder="Buscar" [(ngModel)]="filtro" (ngModelChange)="teclado($event)" (focus)="active()" (keypress)="limpiar($event)">
+                    <div class="input-group-append">
+                      <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" (click)="revert()">
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="autocomplete-items" *ngIf="list" data-spy="scroll" data-target="#navbar-example2" data-offset="0">
+                    <div *ngFor="let grado of listFiltro" (click)="seleccion(grado)">
+                      <label>{{grado.nombre}}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="row" style="margin-top: 1%;">
               <div class="table-responsive">

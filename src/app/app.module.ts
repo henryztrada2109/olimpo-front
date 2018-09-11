@@ -47,6 +47,9 @@ import { ValidacionesInscripcionesComponent } from './schema/datacenter/validaci
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { ProfesionComponent } from './schema/datacenter/profesion/profesion.component';
 import { EstadoCivilComponent } from './schema/datacenter/estado-civil/estado-civil.component';
+import { OcupacionComponent } from './schema/datacenter/ocupacion/ocupacion.component';
+import { TipoIdentificacionComponent } from './schema/datacenter/tipo-identificacion/tipo-identificacion.component';
+import { GeografiaComponent } from './schema/datacenter/geografia/geografia.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +70,10 @@ import { EstadoCivilComponent } from './schema/datacenter/estado-civil/estado-ci
     AsignarAgenciasComponent,
     ValidacionesInscripcionesComponent,
     ProfesionComponent,
-    EstadoCivilComponent
+    EstadoCivilComponent,
+    OcupacionComponent,
+    TipoIdentificacionComponent,
+    GeografiaComponent
   ],
   imports: [
     BrowserModule,

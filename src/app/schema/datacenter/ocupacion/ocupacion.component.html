@@ -1,0 +1,103 @@
+<div class="container col-lg-10">
+  <div class="row" style="margin-top: 5%;">
+    <div class="col-sm-12 col-xl-12">
+      <div class="card">
+        <div class="card-header" style="background-color: #204f81!important; color: white;">
+          <div class="row">
+            <div class="col-lg-12">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 4%;"><li class="fa fa-male fa-2x" style="margin-top: 13%;"></li></td>
+                  <td style="width: 96%;"><h3 style="margin-left: 1%; margin-top: 1%;">Ocupaciones</h3></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-6 border-separator">
+              <div class="container">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <form>
+                      <div class="form-row">
+                        <div class="col-lg-3">
+                          <button type="button" class="btn button-primary button-circle ct-margin-bottom" title="Nueva ocupacion" (click)="open()">
+                            <span class="fa fa-plus"></span>
+                          </button>
+                        </div>
+                        <div class="col-lg-9">
+                          <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Buscar..." aria-label="Recipient's username" aria-describedby="basic-addon2" name="buscar" [(ngModel)]="search" (keypress)="evaluaSearch($event)">
+                            <div class="input-group-append">
+                              <button class="btn btn-outline-secondary" type="button" (click)="runSearch()">
+                                <i class="fa fa-search"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <div class="row ct-margin-bottom">
+                  <ul class="list-group fullWidth list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action change-mouse" *ngFor="let ocupacion of dataOcupacion" (click)="modal(ocupacion)">
+                      {{ocupacion.descripcion}}
+                    </li>
+                  </ul>
+                </div>
+                <div class="row" *ngIf="dataOcupacion">
+                  <div class="col-lg-12 text-right">
+                    <ngb-pagination class="d-flex justify-content-end" [collectionSize]="length" [(page)]="pageIndex" aria-label="Default pagination" (pageChange)="pageEvent = refrescar($event)" [maxSize]="5" [pageSize]="pageSize"></ngb-pagination>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="row" *ngIf="sinSeleccionar">
+                <div class="col-lg-12 text-center">
+                  <label class="color-sv-text">Selecciones un registro o ingrese uno nuevo.</label>
+                </div>
+              </div>
+              <div class="row" *ngIf="!sinSeleccionar">
+                <div class="col-lg-12">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <h4 style="margin-top: 3%;">{{tituloModal}}</h4>
+                    </div>
+                    <div class="col-lg-6">
+                      <p class="text-right">
+                        <button type="button" class="btn btn-danger button-circle ct-margin-left" title="Eliminar" *ngIf="controlEliminar" (click)="eliminar()">
+                          <span class="fa fa-times"></span>
+                        </button>
+                        <button type="button" class="btn button-primary button-circle ct-margin-left" title="Guardar" (click)="confirmaOperacion()">
+                          <span class="fa fa-floppy-o"></span>
+                        </button>
+                        <button type="button" class="btn button-ligth button-circle ct-margin-left" title="Cancelar" (click)="closeForm()">
+                          <span class="fa fa-ban"></span>
+                        </button>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <form>
+                        <div class="form-group">
+                          <label>Descripcion</label>
+                          <input type="text" class="form-control" placeholder="Descripcion" name="descripcion" [disabled]="inputDisabled" style="margin-bottom: 1%;" [(ngModel)]="ocupacion.descripcion" [ngClass]="{'is-invalid': messageDescripcion}">
+                          <label style="color: #dc3545; font-size: 80%;" *ngIf="messageDescripcion">Campo requerido.</label>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -70,20 +70,25 @@ export class GradoComponent implements OnInit {
     /* Variables control vista */
     controlNivel: number;
     displayedColumns: string[] = ['codigo', 'nombre', 'cantidadSecciones'];
+    /* Autocomplete */
+    list = false;
+    listFiltro: {};
+    filtro = '';
 
   constructor(private readonly modalService: NgbModal,
               private readonly service: GradoService) { }
 
-  ngOnInit() {
-      this.pageSize = 10;
+  async ngOnInit() {
+      this.pageSize = 5;
       this.pageIndex = 0;
       this.controlNivel = 1;
       this.listadoPrincipal(this.pageSize, this.pageIndex);
+      this.listFiltro = await this.service.listadoSelect();
   }
 
   /* Funciones Primer Modal */
-  open(content) {
-      this.tituloModal = 'Nuevo grado'
+  open() {
+      this.tituloModal = 'Nuevo grado';
       this.controlFuncion = 1;
       this.iniciarModal();
       /*this.modalReference = this.modalService.open(content, {centered: true, size: 'lg'});*/
@@ -523,5 +528,46 @@ export class GradoComponent implements OnInit {
     refrescar($evento) {
         this.listadoPrincipal(this.pageSize, this.pageIndex - 1);
         return $evento;
+    }
+
+    revert() {
+      this.list = !this.list;
+    }
+
+    async active() {
+      if (this.filtro) {
+          this.listFiltro = await this.service.listadoFiltro(this.filtro);
+      } else {
+          this.listFiltro = await this.service.listadoSelect();
+      }
+      this.list = true;
+    }
+
+    async teclado(valor) {
+       if (valor) {
+           this.listFiltro = await this.service.listadoFiltro(valor);
+       } else {
+           this.listFiltro = await this.service.listadoSelect();
+       }
+    }
+
+    limpiar($event) {
+        const charCode = ($event.which) ? $event.which : $event.keyCode;
+        if (charCode === 13) {
+            this.pageIndex = 1;
+            this.list = false;
+            this.listadoPrincipal(this.pageSize, this.pageIndex - 1);
+        } else {
+            this.list = true;
+        }
+    }
+
+    async seleccion(grado) {
+      this.filtro = grado.nombre;
+      this.list = false;
+      this.pageIndex = 1;
+      this.data1 = await this.service.listadoGradosFiltro(this.pageSize, this.pageIndex - 1, grado.idGrado);
+      this.data1Pagineo = this.data1.content;
+      this.length1 = this.data1.totalElements;
     }
 }

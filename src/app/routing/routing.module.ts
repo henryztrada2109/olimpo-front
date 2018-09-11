@@ -19,6 +19,9 @@ import {AsignarAgenciasComponent} from '../schema/seguridad/asignar-agencias/asi
 import {ValidacionesInscripcionesComponent} from '../schema/datacenter/validaciones-inscripciones/validaciones-inscripciones.component';
 import {ProfesionComponent} from '../schema/datacenter/profesion/profesion.component';
 import {EstadoCivilComponent} from '../schema/datacenter/estado-civil/estado-civil.component';
+import {OcupacionComponent} from '../schema/datacenter/ocupacion/ocupacion.component';
+import {TipoIdentificacionComponent} from '../schema/datacenter/tipo-identificacion/tipo-identificacion.component';
+import {GeografiaComponent} from '../schema/datacenter/geografia/geografia.component';
 
 
 export const appRoutes: Routes = [
@@ -37,7 +40,10 @@ export const appRoutes: Routes = [
   {path: 'asignarAgencia', component: AsignarAgenciasComponent, canActivate: [SeleccionGuard]},
   {path: 'validacionesInscripciones', component: ValidacionesInscripcionesComponent, canActivate: [SeleccionGuard]},
   {path: 'profesiones', component: ProfesionComponent, canActivate: [SeleccionGuard]},
-  {path: 'estadoCivil', component: EstadoCivilComponent, canActivate: [SeleccionGuard]}
+  {path: 'estadoCivil', component: EstadoCivilComponent, canActivate: [SeleccionGuard]},
+  {path: 'ocupacion', component: OcupacionComponent, canActivate: [SeleccionGuard]},
+  {path: 'tipoIdentificacion', component: TipoIdentificacionComponent, canActivate: [SeleccionGuard]},
+  {path: 'geografia', component: GeografiaComponent, canActivate: [SeleccionGuard]}
 ];
 
 @NgModule({
