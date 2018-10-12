@@ -12,23 +12,23 @@ const httpOptions = {
 export class PeticionesHttpService {
 
   constructor(private http: HttpClient) { }
-  funtionGet(pathAdicional: string, puerto: string): Promise<any> {
-    return this.http.get(environment.ipBase + puerto + pathAdicional, httpOptions).toPromise();
+  funtionGet(pathAdicional: string): Promise<any> {
+        return this.http.get(pathAdicional, httpOptions).toPromise();
   }
-  funtionPost(pathAdicional: string, data, puerto: string) {
-    return this.http.post( environment.ipBase + puerto + pathAdicional, JSON.stringify(data), httpOptions).toPromise();
+  funtionPost(pathAdicional: string, data) {
+    return this.http.post(pathAdicional, JSON.stringify(data), httpOptions).toPromise();
   }
-  funtionPostPorPath(pathAdicional: string, puerto: string) {
-        return this.http.post( environment.ipBase + puerto + pathAdicional, httpOptions).toPromise();
+  funtionPostPorPath(pathAdicional: string) {
+        return this.http.post( pathAdicional, httpOptions).toPromise();
   }
-  funtionPatch(pathAdicional: string, data, puerto: string) {
-    return this.http.patch(environment.ipBase + puerto + pathAdicional, data, httpOptions).toPromise();
+  funtionPatch(pathAdicional: string, data) {
+    return this.http.patch(pathAdicional, data, httpOptions).toPromise();
   }
-  funtionPatchPorPath(pathAdicional: string, puerto: string) {
-    return this.http.patch(environment.ipBase + puerto + pathAdicional, httpOptions).toPromise();
+  funtionPatchPorPath(pathAdicional: string) {
+    return this.http.patch(pathAdicional, httpOptions).toPromise();
   }
-  funtionDelete(pathAdicional: string, puerto: string) {
-    return this.http.delete(environment.ipBase + puerto + pathAdicional).toPromise();
+  funtionDelete(pathAdicional: string) {
+    return this.http.delete(pathAdicional).toPromise();
   }
 
   // PRUEBAS

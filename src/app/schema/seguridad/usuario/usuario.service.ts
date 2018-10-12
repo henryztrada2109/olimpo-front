@@ -12,57 +12,57 @@ export class UsuarioService {
   constructor(private serviceGeneral: PeticionesHttpService) { }
 
   listadoUsuario(size, page) {
-    this.pathAdicional = '/seguridad/v1/usuario/consultaGeneral?page=' + page + '&size=' + size;
-    return this.serviceGeneral.funtionGet(this.pathAdicional, environment.puerto)
+    this.pathAdicional = 'api/seguridad/v1/usuario/consultaGeneral?page=' + page + '&size=' + size;
+    return this.serviceGeneral.funtionGet(this.pathAdicional)
       .catch(Promise.reject);
   }
 
   listadoFiltroRol(size, page, rol) {
-    this.pathAdicional = '/seguridad/v1/usuario/consultaFiltroRol/' + rol + '?page=' + page + '&size=' + size;
-    return this.serviceGeneral.funtionGet(this.pathAdicional, environment.puerto)
+    this.pathAdicional = 'api/seguridad/v1/usuario/consultaFiltroRol/' + rol + '?page=' + page + '&size=' + size;
+    return this.serviceGeneral.funtionGet(this.pathAdicional)
       .catch(Promise.reject);
   }
 
   listadoFiltroUsuario(size, page, usuario) {
-    this.pathAdicional = '/seguridad/v1/usuario/consultaFiltroUsuario/' + usuario + '?page=' + page + '&size=' + size;
-    return this.serviceGeneral.funtionGet(this.pathAdicional, environment.puerto)
+    this.pathAdicional = 'api/seguridad/v1/usuario/consultaFiltroUsuario/' + usuario + '?page=' + page + '&size=' + size;
+    return this.serviceGeneral.funtionGet(this.pathAdicional)
       .catch(Promise.reject);
   }
 
   listadoFiltroUsuarioRol(size, page, usuario, rol) {
-    this.pathAdicional = '/seguridad/v1/usuario/consultaFiltroUsuarioAndRol/' + usuario + '/' + rol + '?page=' + page + '&size='
+    this.pathAdicional = 'api/seguridad/v1/usuario/consultaFiltroUsuarioAndRol/' + usuario + '/' + rol + '?page=' + page + '&size='
         + size;
-    return this.serviceGeneral.funtionGet(this.pathAdicional, environment.puerto)
+    return this.serviceGeneral.funtionGet(this.pathAdicional)
       .catch(Promise.reject);
   }
 
   crea(data, id) {
-    this.pathAdicional = '/seguridad/v1/usuario/crear/' + id;
-    return this.serviceGeneral.funtionPost(this.pathAdicional, data, environment.puerto)
+    this.pathAdicional = 'api/seguridad/v1/usuario/crear/' + id;
+    return this.serviceGeneral.funtionPost(this.pathAdicional, data)
       .catch(Promise.reject);
   }
 
   modificar(data) {
-    this.pathAdicional = '/seguridad/v1/usuario/editar';
-    return this.serviceGeneral.funtionPatch(this.pathAdicional, data, environment.puerto)
+    this.pathAdicional = 'api/seguridad/v1/usuario/editar';
+    return this.serviceGeneral.funtionPatch(this.pathAdicional, data)
       .catch(Promise.reject);
   }
 
   eliminar(codigo) {
-    this.pathAdicional = '/seguridad/v1/usuario/eliminar/' + codigo;
-    return this.serviceGeneral.funtionDelete(this.pathAdicional, environment.puerto)
+    this.pathAdicional = 'api/seguridad/v1/usuario/eliminar/' + codigo;
+    return this.serviceGeneral.funtionDelete(this.pathAdicional)
       .catch(Promise.reject);
   }
 
   listadoRoles() {
-    this.pathAdicional = '/seguridad/v1/role/consultaSelect';
-    return this.serviceGeneral.funtionGet(this.pathAdicional, environment.puerto)
+    this.pathAdicional = 'api/seguridad/v1/role/consultaSelect';
+    return this.serviceGeneral.funtionGet(this.pathAdicional)
       .catch(Promise.reject);
   }
 
   listadoTipos() {
-        this.pathAdicional = '/seguridad/v1/tipoMenu/consultaSelect';
-        return this.serviceGeneral.funtionGet(this.pathAdicional, environment.puerto)
+        this.pathAdicional = 'api/seguridad/v1/tipoMenu/consultaSelect';
+        return this.serviceGeneral.funtionGet(this.pathAdicional)
             .catch(Promise.reject);
   }
 

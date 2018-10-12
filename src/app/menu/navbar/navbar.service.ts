@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import {environment} from '../../../environments/environment';
 import {PeticionesHttpService} from '../../shared/peticiones-http.service';
 
 @Injectable({
@@ -12,14 +11,14 @@ export class NavbarService {
   constructor(private serviceGeneral: PeticionesHttpService) { }
 
   getEmpresa(idEmpresa) {
-    this.pathAdicional = '/seguridad/v1/empresa/consulta/' + idEmpresa;
-    return this.serviceGeneral.funtionGet(this.pathAdicional, environment.puerto)
+    this.pathAdicional = 'api/seguridad/v1/empresa/consulta/' + idEmpresa;
+    return this.serviceGeneral.funtionGet(this.pathAdicional)
       .catch(Promise.reject);
   }
 
   menuEstructura(codigo) {
-    this.pathAdicional = '/seguridad/v1/menuPrincipal/estructuraMenu/' + codigo;
-    return this.serviceGeneral.funtionGet(this.pathAdicional, environment.puerto)
+    this.pathAdicional = 'api/seguridad/v1/menuPrincipal/estructuraMenu/' + codigo;
+    return this.serviceGeneral.funtionGet(this.pathAdicional)
       .catch(Promise.reject);
   }
 }
