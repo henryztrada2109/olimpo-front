@@ -1,3 +1,6 @@
 export const environment = {
-  production: true
+    production: true,
+    ipBase: 'http://localhost:',
+    nombreModulo: 'Plataforma',
+    puerto: '5501'
 };

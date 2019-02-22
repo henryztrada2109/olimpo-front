@@ -152,6 +152,7 @@ export class MenuPrincipalComponent implements OnInit {
       this.menuPrincipalJson.ejecuta = 1;
     } else {
       this.menuPrincipalJson.ejecuta = 0;
+      this.menuPrincipalJson.idOpciones = 1;
     }
     this.menuPrincipalJson.idTipoMenu = this.tipoSeleccionado;
     this.menuPrincipalDto = await this.service.crea(this.menuPrincipalJson);

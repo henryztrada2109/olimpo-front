@@ -19,7 +19,7 @@ export class PeticionesHttpService {
     return this.http.post(pathAdicional, JSON.stringify(data), httpOptions).toPromise();
   }
   funtionPostPorPath(pathAdicional: string) {
-        return this.http.post( pathAdicional, httpOptions).toPromise();
+        return this.http.post(pathAdicional, httpOptions).toPromise();
   }
   funtionPatch(pathAdicional: string, data) {
     return this.http.patch(pathAdicional, data, httpOptions).toPromise();
