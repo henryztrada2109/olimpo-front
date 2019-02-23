@@ -166,9 +166,13 @@
               </div>
               <div class="row" style="margin-top: 2%;">
                 <div class="col-lg-6">
-                  <label>Nombres</label>
+                  <mat-form-field appearance="outline" class="col-lg-12">
+                    <mat-label>Nombres</mat-label>
+                    <input matInput placeholder="Nombres">
+                  </mat-form-field>
+                  <!--label>Nombres</label>
                   <input type="text" class="form-control fullWidth" placeholder="Nombres" [ngClass]="{'is-invalid': messageNombres}" [(ngModel)]="inscripcionJson.nombres">
-                  <label style="color: #dc3545; font-size: 80%;" *ngIf="messageNombres">{{textoMensaje}}</label>
+                  <label style="color: #dc3545; font-size: 80%;" *ngIf="messageNombres">{{textoMensaje}}</label-->
                 </div>
                 <div class="col-lg-6">
                   <label>Apellidos</label>
